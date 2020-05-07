@@ -24,7 +24,7 @@ server <- function(input, output, session) {
   callModule(mod_snpdistribution_server, "dis")
   callModule(mod_phylogenetics_server, "tree")
   callModule(mod_diversity_server, "diversity")
-  callModule(mod_extraction_server,"extract")
+  callModule(mod_extraction_server, "extract")
 }
 
 shinyApp(ui, server)

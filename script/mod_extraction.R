@@ -152,7 +152,7 @@ mod_extraction_ui <- function(id) {
         )
       ),
       br(),
-      actionButton(ns("submit"), strong("Submit"), styleclass = "success")
+      actionButton(ns("extract_submit"), strong("Submit"), styleclass = "success")
     ),
     mainPanel(
       conditionalPanel(
@@ -189,10 +189,17 @@ mod_extraction_ui <- function(id) {
 
 mod_extraction_server <- function(input, output, session) {
   ns <- session$ns
-  snp_data <- reactive({
-    extractsnp(
-      chr = input$chr, start = input$start, end = input$end
-    )
+  snp_sample <- eventReactive(input$extract_submit,{
+    if (input$snp_sample_choose == "1") {
+      df <- read.table(input$snp_sample$datapath, header = F, stringsAsFactors = F)
+      df <- as.character(df$V1)
+    } else {
+      df <- input$snp_accession$selected
+    }
+    return(df)
+  })
+  snp_data <- eventReactive(input$extract_submit, {
+    extractsnp(chr = input$chr, start = input$start, end = input$end, accession = snp_sample(), muttype = input$muttype, maf = input$maf)
   })
   output$snp_info <- renderDT({
     DT::datatable(snp_data()[[3]][, c(1:10)],
@@ -207,6 +214,3 @@ mod_extraction_server <- function(input, output, session) {
     )
   })
 }
-
-
-

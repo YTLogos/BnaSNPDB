@@ -36,7 +36,7 @@ mod_ldheatmap_ui <- function(id) {
       ),
       HTML("<h4><font color='black'>Select Accessions:</font></h4>"),
       br(),
-      chooserInput(ns("ld_accession"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE),
+      chooserInput(ns("ld_accession"), "Available frobs", "Selected frobs", c(), all.var.info, size = 10, multiple = TRUE),
       br(),
       br(),
       actionButton(ns("ld_submit"), strong("Submit"), styleclass = "success")
