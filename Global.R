@@ -50,6 +50,7 @@ source("script/diversity.R")
 
 load("./data/Other_data/geneinfo.RData")
 load("./data/Other_data/gffinfo.RData")
+load("./data/Other_data/darmor_gene.RData")
 
 chromosome <- c(
   "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10",
@@ -66,6 +67,7 @@ eff_type <- c(
   "Intragenic", "Upstream", "Intron", "Splice_site_region", "Stop_lost",
   "Stop_gained", "Synonymous_stop", "Start_lost"
 )
+database_type <- c("NR", "Swiss-prot", "KEGG", "eggNOG", "GO")
 available_data_formats <- c("txt", "xlsx", "csv", "tsv")
 available_fig_formats <- c("png", "pdf", "jpeg", "tiff", "bmp", "svg")
 all.tree.info <- read.table("./data/Other_data/all.var.tree.info.txt", head = T, as.is = T, sep = "\t", row.names = 1)

@@ -13,3 +13,19 @@ readNewData <- function(fileinfo) {
   newdata <- read.table(file = fileinfo$datapath, header = FALSE, stringsAsFactors = FALSE, col.names = c("accession", "type"))
   return(newdata)
 }
+
+readNewData_gene <- function(fileinfo) {
+  if (is.null(fileinfo)) {
+    fileinfo <- list(name = "gene_info.txt", size = 1, type = "text/txt", datapath = "data/Other_data/gene_info.txt")
+  }
+  newdata <- read.table(file = fileinfo$datapath, header = FALSE, stringsAsFactors = FALSE)
+  return(newdata)
+}
+
+readNewData_sample <- function(fileinfo) {
+  if (is.null(fileinfo)) {
+    fileinfo <- list(name = "Core.var.txt", size = 1, type = "text/txt", datapath = "data/Other_data/Core.var.txt")
+  }
+  newdata <- read.table(file = fileinfo$datapath, header = FALSE, stringsAsFactors = FALSE)
+  return(newdata)
+}
