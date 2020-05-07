@@ -41,26 +41,26 @@ mod_extraction_ui <- function(id) {
         ns = ns,
         selectInput(ns("ref"), "Reference Genome", choices = c("Darmor-bzh", "ZS11", "NY7", "Tapidor")),
         checkboxInput(ns("singlegene"), "Extract single gene?", FALSE),
-        
+
         conditionalPanel(
           condition = "!input.singlegene",
           ns = ns,
           fileInput(ns("genecluster"), "Upload genes: ",
-                          multiple = FALSE,
-                          accept = c(
-                            "text/txt",
-                            "text/comma-separated-values,text/plain",
-                            ".txt"
-                          ),
-                    placeholder = "data/Other_data/gene_info.txt"
-                        )
+            multiple = FALSE,
+            accept = c(
+              "text/txt",
+              "text/comma-separated-values,text/plain",
+              ".txt"
+            ),
+            placeholder = "data/Other_data/gene_info.txt"
+          )
         ),
         conditionalPanel(
           condition = "input.singlegene",
           ns = ns,
           textInput(ns("gene"), "Enter gene name:", value = "BnaA10g22080D")
         ),
-        
+
         #   conditionalPanel(
         #     condition = "!input.singlegene",
         #     ns = ns,
@@ -179,13 +179,12 @@ mod_extraction_ui <- function(id) {
         DT::dataTableOutput(ns("snp_info")),
         br(),
         selectInput(ns("snp_format"),
-                    "Download data as:",
-                    choices = available_data_formats,
-                    selected = NULL,
-                    selectize = TRUE
+          "Download data as:",
+          choices = available_data_formats,
+          selected = NULL,
+          selectize = TRUE
         ),
         downloadButton(ns("snpdata_download"), "Download SNP Data")
-        
       ),
 
       conditionalPanel(
@@ -197,10 +196,10 @@ mod_extraction_ui <- function(id) {
         DT::dataTableOutput(ns("gene_info")),
         br(),
         selectInput(ns("gene_format"),
-                    "Download data as:",
-                    choices = available_data_formats,
-                    selected = NULL,
-                    selectize = TRUE
+          "Download data as:",
+          choices = available_data_formats,
+          selected = NULL,
+          selectize = TRUE
         ),
         downloadButton(ns("gene_download"), "Download Genes Informations"),
         br(),
@@ -219,21 +218,21 @@ mod_extraction_ui <- function(id) {
         plotOutput(ns("accession_dis")),
         br(),
         selectInput(ns("sample_fig_format"),
-                    "Download figure as:",
-                    choices = available_fig_formats,
-                    selected = NULL,
-                    selectize = TRUE
+          "Download figure as:",
+          choices = available_fig_formats,
+          selected = NULL,
+          selectize = TRUE
         ),
         downloadButton(ns("sample_fig_download"), "Download Geographic distribution"),
-        
+
         h3("SNP data:"),
         DT::dataTableOutput(ns("aceession_info")),
         br(),
         selectInput(ns("sample_format"),
-                    "Download data as:",
-                    choices = available_data_formats,
-                    selected = NULL,
-                    selectize = TRUE
+          "Download data as:",
+          choices = available_data_formats,
+          selected = NULL,
+          selectize = TRUE
         ),
         downloadButton(ns("accession_download"), "Download Accession Informations")
       )
@@ -255,7 +254,7 @@ mod_extraction_server <- function(input, output, session) {
   snp_data <- eventReactive(input$snp_submit, {
     extractsnp(chr = input$chr, start = input$start, end = input$end, accession = snp_sample(), muttype = input$muttype, maf = input$maf)
   })
-  
+
   output$snp_info <- renderDT({
     DT::datatable(snp_data()[[3]][, c(1:10)],
       rownames = FALSE,
@@ -268,7 +267,7 @@ mod_extraction_server <- function(input, output, session) {
       ), escape = FALSE
     )
   })
-  
+
   output$snpdata_download <- downloadHandler(
     filename = function() {
       glue::glue("{input$chr}_{input$start}_{input$end}.SNP.data.{input$snp_format}")
@@ -285,52 +284,53 @@ mod_extraction_server <- function(input, output, session) {
       }
     }
   )
-  
-  
-  gene_sample <- eventReactive(input$gene_submit,{
-    if(input$ref=="Darmor-bzh"){
+
+
+  gene_sample <- eventReactive(input$gene_submit, {
+    if (input$ref == "Darmor-bzh") {
       gene_file <- darmor_gene_anno
-    }else if(input$ref=="ZS11"){
+    } else if (input$ref == "ZS11") {
       gene_file <- zs11_gene_anno
-    }else if(input$ref=="NY7"){
+    } else if (input$ref == "NY7") {
       gene_file <- ny7_gene_anno
-    }else{
+    } else {
       gene_file <- tapidor_gene_anno
     }
     return(gene_file)
   })
-  
-  gene_id <- eventReactive(input$gene_submit,{
-    if(input$singlegene){
+
+  gene_id <- eventReactive(input$gene_submit, {
+    if (input$singlegene) {
       id <- as.character(input$gene)
-    }else{
+    } else {
       df <- readNewData_gene(fileinfo = input$genecluster)
       id <- as.character(df$V1)
     }
     return(id)
   })
-  
-  database_type <- eventReactive(input$gene_submit,{
-    d <- c("geneid","chr","start","end",input$database)
+
+  database_type <- eventReactive(input$gene_submit, {
+    d <- c("geneid", "chr", "start", "end", input$database)
     return(d)
   })
-  
-  gene_anno <- eventReactive(input$gene_submit,{
-    gene_sample()[gene_sample()[,1] %in% gene_id(), colnames(gene_sample()) %in% database_type()]
-    })
+
+  gene_anno <- eventReactive(input$gene_submit, {
+    gene_sample()[gene_sample()[, 1] %in% gene_id(), colnames(gene_sample()) %in% database_type()]
+  })
   output$gene_info <- renderDT({
     DT::datatable(gene_anno(),
-                  rownames = FALSE,
-                  filter = "bottom",
-                  selection = "single",
-                  options = list(
-                    pageLength = 10,
-                    scrollX = TRUE,
-                    columnDefs = list(list(className = "dt-right", target = "_all"))
-                  )
-                  )
+      rownames = FALSE,
+      filter = "bottom",
+      selection = "single",
+      options = list(
+        pageLength = 10,
+        scrollX = TRUE,
+        columnDefs = list(list(className = "dt-right", target = "_all"))
+      ),
+      class = "white-space: nowrap"
+    )
   })
-  
+
   output$gene_download <- downloadHandler(
     filename = function() {
       glue::glue("{input$ref}.gene.anno.{input$gene_format}")
@@ -347,5 +347,4 @@ mod_extraction_server <- function(input, output, session) {
       }
     }
   )
-  
 }
