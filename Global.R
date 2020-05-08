@@ -1,5 +1,6 @@
 options(warn = -1)
 library(ggplot2)
+library(maps)
 library(patchwork)
 library(forcats)
 library(glue)
@@ -51,6 +52,7 @@ source("script/diversity.R")
 load("./data/Other_data/geneinfo.RData")
 load("./data/Other_data/gffinfo.RData")
 load("./data/Other_data/darmor_gene.RData")
+load("./data/Other_data/accession_map.RData")
 
 chromosome <- c(
   "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10",
@@ -71,3 +73,5 @@ database_type <- c("NR", "Swiss-prot", "KEGG", "eggNOG", "GO")
 available_data_formats <- c("txt", "xlsx", "csv", "tsv")
 available_fig_formats <- c("png", "pdf", "jpeg", "tiff", "bmp", "svg")
 all.tree.info <- read.table("./data/Other_data/all.var.tree.info.txt", head = T, as.is = T, sep = "\t", row.names = 1)
+sample_geographic_info <- read.table("./data/Other_data/sample_map_info.txt", header = T, as.is = T, sep = "\t")
+sample_geographic_info$type <- factor(sample_geographic_info$type, levels = c("Winter","Semi-winter","Spring"))

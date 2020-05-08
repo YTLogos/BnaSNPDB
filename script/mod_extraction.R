@@ -7,8 +7,8 @@ mod_extraction_ui <- function(id) {
       br(),
       HTML("<h4><font color='red'>Parameters:</font></h4>"),
       selectInput(ns("type"), "What do you want to extract?", choices = c("SNP", "Gene", "Accession")),
-      
-      
+
+
       conditionalPanel(
         condition = "input.type=='SNP'",
         ns = ns,
@@ -38,9 +38,9 @@ mod_extraction_ui <- function(id) {
         checkboxGroupInput(ns("mut_type"), h4("Select Mutation types:"), choices = eff_type, selected = eff_type),
         actionButton(ns("snp_submit"), strong("Submit"), styleclass = "success")
       ),
-      
-      
-      
+
+
+
       conditionalPanel(
         condition = "input.type=='Gene'",
         ns = ns,
@@ -68,8 +68,8 @@ mod_extraction_ui <- function(id) {
         checkboxGroupInput(ns("database"), "Select annotation database", choices = database_type, selected = database_type),
         actionButton(ns("gene_submit"), strong("Submit"), styleclass = "success")
       ),
-      
-      
+
+
       conditionalPanel(
         condition = "input.type=='Accession'",
         ns = ns,
@@ -90,12 +90,17 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "!input.upload_sample",
           ns = ns,
+          br(),
+          HTML("<h4><font color='black'>Select Accessions:</font></h4>"),
           chooserInput(ns("accession_select"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE),
         ),
+        br(),
         actionButton(ns("accession_submit"), strong("Submit"), styleclass = "success")
       ),
       br(),
     ),
+
+
     mainPanel(
       conditionalPanel(
         br(),
@@ -151,7 +156,8 @@ mod_extraction_ui <- function(id) {
           selectize = TRUE
         ),
         downloadButton(ns("sample_fig_download"), "Download Geographic distribution"),
-
+        br(),
+        br(),
         h3("SNP data:"),
         DT::dataTableOutput(ns("aceession_info")),
         br(),
@@ -161,11 +167,18 @@ mod_extraction_ui <- function(id) {
           selected = NULL,
           selectize = TRUE
         ),
-        downloadButton(ns("accession_download"), "Download Accession Informations")
+        downloadButton(ns("accession_download"), "Download Accession Informations"),
+        br(),
+        br(),
+        br(),
+        br()
       )
     )
   )
 }
+
+
+
 
 mod_extraction_server <- function(input, output, session) {
   ns <- session$ns
@@ -193,32 +206,32 @@ mod_extraction_server <- function(input, output, session) {
       ), escape = FALSE
     )
   })
-  
+
   # output$snp_info <- DT::renderDataTable(
   #   datatable( data = snp_data()[[3]]
-  #              , extensions = 'Buttons', 
-  #              options = list( 
-  #                dom = "Blfrtip", buttons = 
+  #              , extensions = 'Buttons',
+  #              options = list(
+  #                dom = "Blfrtip", buttons =
   #                  list("copy", list(
   #                    extend = "collection"
   #                    , buttons = c("csv", "excel", "pdf")
   #                    , text = "Download",
   #                    server=FALSE
   #                  ) ) # end of buttons customization
-  #                
+  #
   #                # customize the length menu
   #                , lengthMenu = list( c(10, 20, -1) # declare values
   #                                     , c(10, 20, "All") # declare titles
   #                ) # end of lengthMenu customization
   #                , pageLength = 10
-  #                
-  #                
+  #
+  #
   #              ) # end of options
-  #              
+  #
   #   ) # end of datatables
   # )
-  
-  
+
+
 
   output$snpdata_download <- downloadHandler(
     filename = function() {
@@ -276,7 +289,7 @@ mod_extraction_server <- function(input, output, session) {
       options = list(
         pageLength = 10,
         scrollX = TRUE,
-        fixedColumns=TRUE,
+        fixedColumns = TRUE,
         columnDefs = list(list(className = "dt-right", target = "_all"))
       ),
       class = "white-space: nowrap"
@@ -296,6 +309,94 @@ mod_extraction_server <- function(input, output, session) {
         readr::write_tsv(gene_anno(), file, col_names = T)
       } else {
         writexl::write_xlsx(gene_anno(), file, col_names = T)
+      }
+    }
+  )
+
+
+
+  sample_selected <- eventReactive(input$accession_submit, {
+    if (input$upload_sample) {
+      sample <- readNewData_sample(fileinfo = input$sample)
+      id <- as.character(sample$V1)
+    } else {
+      sample <- sapply(input$accession_select$selected, function(x) {
+        if (x %in% c("Winter", "Semi-winter", "Spring", "Core")) {
+          var <- readLines(paste0("./data/Other_data/", x, ".var.txt"))
+          return(var)
+        } else {
+          return(x)
+        }
+      })
+      id <- unique(unlist(sample))
+    }
+    return(id)
+  })
+
+  sample_info <- eventReactive(input$accession_submit, {
+    sample <- sample_geographic_info[sample_geographic_info[, 1] %in% sample_selected(), , drop = FALSE]
+    return(sample)
+  })
+
+  geographic_plot <- eventReactive(input$accession_submit, {
+    p <- geographic_map +
+      geom_point(data = sample_info(), aes(long, lat, color = type, group = type), size = 1.5)
+    return(p)
+  })
+
+
+  output$accession_dis <- renderPlot({
+    print(geographic_plot())
+  })
+  output$aceession_info <- renderDT({
+    DT::datatable(sample_info(),
+      rownames = FALSE,
+      filter = "bottom",
+      options = list(
+        pageLength = 10,
+        scrollX = TRUE,
+        autoWidth = FALSE,
+        columnDefs = list(list(className = "dt-right", target = "_all"))
+      ), escape = FALSE
+    )
+  })
+
+  output$sample_fig_download <- downloadHandler(
+    filename = function() {
+      glue::glue("The geographic distribution of rapeseed accessions.{input$sample_fig_format}")
+    },
+    content = function(file) {
+      if (input$sample_fig_format == "png") {
+        png(file, width = 12 * 300, height = 6 * 300, res = 300)
+      } else if (input$sample_fig_format == "pdf") {
+        pdf(file, width = 12, height = 6, onefile = F)
+      } else if (input$sample_fig_format == "jpeg") {
+        jpeg(file, width = 12 * 300, height = 6 * 300, res = 300)
+      } else if (input$sample_fig_format == "tiff") {
+        tiff(file, width = 12 * 300, height = 6 * 300, res = 300)
+      } else if (input$sample_fig_format == "bmp") {
+        bmp(file, width = 12 * 300, height = 6 * 300, res = 300)
+      } else {
+        svg(file)
+      }
+      print(geographic_plot())
+      dev.off()
+    }
+  )
+
+  output$accession_download <- downloadHandler(
+    filename = function() {
+      glue::glue(".Rapeseed.accession.info.{input$sample_format}")
+    },
+    content = function(file) {
+      if (input$sample_format == "txt") {
+        write.table(sample_info(), file, row.names = F, col.names = T, quote = F)
+      } else if (input$sample_format == "csv") {
+        readr::write_csv(sample_info(), file, col_names = T)
+      } else if (input$sample_format == "tsv") {
+        readr::write_tsv(sample_info(), file, col_names = T)
+      } else {
+        writexl::write_xlsx(sample_info(), file, col_names = T)
       }
     }
   )
