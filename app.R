@@ -1,4 +1,3 @@
-library(shiny)
 ui <- fluidPage(
   # tags$head(tags$style('p {color:black;}')),
   includeCSS("www/custom.css"),

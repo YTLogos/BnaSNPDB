@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param id 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 mod_extraction_ui <- function(id) {
   ns <- NS(id)
   tagList(
@@ -180,6 +188,16 @@ mod_extraction_ui <- function(id) {
 
 
 
+#' Title
+#'
+#' @param input 
+#' @param output 
+#' @param session 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 mod_extraction_server <- function(input, output, session) {
   ns <- session$ns
   snp_sample <- reactive({
