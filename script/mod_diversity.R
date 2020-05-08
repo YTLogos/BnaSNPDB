@@ -34,7 +34,6 @@ mod_diversity_ui <- function(id) {
       br(),
       br(),
       tabsetPanel(
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md")),
         tabPanel(h3("Results"),
                  h3("Diversity Plot:"),
                  withSpinner(plotOutput(ns("div_plot"), height = 700), type = 4),
@@ -61,7 +60,8 @@ mod_diversity_ui <- function(id) {
                  br(),
                  br(),
                  br()
-        )
+        ),
+        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
       )
       )
   )
@@ -101,6 +101,7 @@ mod_diversity_server <- function(input, output, session) {
   output$div_plot <- renderPlot({
     diversity_plot()
   })
+  
   output$div_allele_info <- renderDT({
     DT::datatable(allele.info()[, c(1:10)],
                   rownames = FALSE,
@@ -113,6 +114,22 @@ mod_diversity_server <- function(input, output, session) {
                   )
     )
   })
+  
+#############  DT::datatable   download buttons  ##############
+  # output$div_allele_info <- renderDT({
+  #   DT::datatable(allele.info()[, c(1:10)],
+  #                 extensions = 'Buttons', options = list(
+  #                   dom = 'Bfrtip',
+  #                   buttons = 
+  #                     list('copy', 'print', list(
+  #                       extend = 'collection',
+  #                       buttons = c('csv', 'excel', 'pdf'),
+  #                       text = 'Download'
+  #                     ))
+  #                   
+  #                 )
+  #   )
+  # })
   
   output$div_fig_download <- downloadHandler(
     filename = function() {

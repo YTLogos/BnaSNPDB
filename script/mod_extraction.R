@@ -252,6 +252,7 @@ mod_extraction_server <- function(input, output, session) {
       options = list(
         pageLength = 10,
         scrollX = TRUE,
+        fixedColumns=TRUE,
         columnDefs = list(list(className = "dt-right", target = "_all"))
       ),
       class = "white-space: nowrap"
