@@ -6,7 +6,7 @@
 #' @export
 #'
 #' @examples
-mod_about_ui <- function(id) {
+mod_home_ui <- function(id) {
   ns <- NS(id)
   tagList(
     fluidRow(
@@ -21,6 +21,6 @@ mod_about_ui <- function(id) {
   )
 }
 
-mod_about_server <- function(input, output, session) {
+mod_home_server <- function(input, output, session) {
   ns <- session$ns
 }

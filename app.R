@@ -8,7 +8,7 @@ ui <- fluidPage(
     header = tagList(useShinydashboard()),
     windowTitle = "SNP database of 1007 rapeseed germplasm accessions",
     theme = shinytheme("flatly"),
-    tabPanel(h3("Home"), mod_about_ui("about")),
+    tabPanel(h3("Home"), mod_home_ui("home")),
     tabPanel(h3("LDheatmap"), mod_ldheatmap_ui("ld")),
     tabPanel(h3("SNP_distribution"), mod_snpdistribution_ui("dis")),
     tabPanel(h3("Phylogenetics"), mod_phylogenetics_ui("tree")),
