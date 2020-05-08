@@ -88,7 +88,6 @@ mod_phylogenetics_server <- function(input, output, session) {
     DT::datatable(snp_data()[[3]][, c(1:10)],
       rownames = FALSE,
       filter = "bottom",
-      selection = "single",
       options = list(
         pageLength = 10,
         scrollX = TRUE,

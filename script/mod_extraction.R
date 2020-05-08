@@ -186,7 +186,6 @@ mod_extraction_server <- function(input, output, session) {
     DT::datatable(snp_data()[[3]][, c(1:10)],
       rownames = FALSE,
       filter = "bottom",
-      selection = "single",
       options = list(
         scrollX = TRUE,
         autoWidth = FALSE,
@@ -194,6 +193,32 @@ mod_extraction_server <- function(input, output, session) {
       ), escape = FALSE
     )
   })
+  
+  # output$snp_info <- DT::renderDataTable(
+  #   datatable( data = snp_data()[[3]]
+  #              , extensions = 'Buttons', 
+  #              options = list( 
+  #                dom = "Blfrtip", buttons = 
+  #                  list("copy", list(
+  #                    extend = "collection"
+  #                    , buttons = c("csv", "excel", "pdf")
+  #                    , text = "Download",
+  #                    server=FALSE
+  #                  ) ) # end of buttons customization
+  #                
+  #                # customize the length menu
+  #                , lengthMenu = list( c(10, 20, -1) # declare values
+  #                                     , c(10, 20, "All") # declare titles
+  #                ) # end of lengthMenu customization
+  #                , pageLength = 10
+  #                
+  #                
+  #              ) # end of options
+  #              
+  #   ) # end of datatables
+  # )
+  
+  
 
   output$snpdata_download <- downloadHandler(
     filename = function() {
@@ -248,7 +273,6 @@ mod_extraction_server <- function(input, output, session) {
     DT::datatable(gene_anno(),
       rownames = FALSE,
       filter = "bottom",
-      selection = "single",
       options = list(
         pageLength = 10,
         scrollX = TRUE,

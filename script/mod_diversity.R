@@ -106,7 +106,6 @@ mod_diversity_server <- function(input, output, session) {
     DT::datatable(allele.info()[, c(1:10)],
                   rownames = FALSE,
                   filter = "bottom",
-                  selection = "single",
                   options = list(
                     pageLength = 10,
                     scrollX = TRUE,
