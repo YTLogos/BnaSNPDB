@@ -7,6 +7,8 @@ mod_extraction_ui <- function(id) {
       br(),
       HTML("<h4><font color='red'>Parameters:</font></h4>"),
       selectInput(ns("type"), "What do you want to extract?", choices = c("SNP", "Gene", "Accession")),
+      
+      
       conditionalPanel(
         condition = "input.type=='SNP'",
         ns = ns,
@@ -18,7 +20,7 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "input.snp_sample_choose==1",
           ns = ns,
-          fileInput(ns("snp_sample"), "Upload Your Samples.Leave blank for example run.",
+          fileInput(ns("snp_sample"), "Upload Samples. Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
@@ -36,6 +38,9 @@ mod_extraction_ui <- function(id) {
         checkboxGroupInput(ns("mut_type"), h4("Select Mutation types:"), choices = eff_type, selected = eff_type),
         actionButton(ns("snp_submit"), strong("Submit"), styleclass = "success")
       ),
+      
+      
+      
       conditionalPanel(
         condition = "input.type=='Gene'",
         ns = ns,
@@ -45,105 +50,26 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "!input.singlegene",
           ns = ns,
-          fileInput(ns("genecluster"), "Upload genes: ",
+          fileInput(ns("genecluster"), "Upload Genes. Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
               "text/comma-separated-values,text/plain",
               ".txt"
             ),
-            placeholder = "data/Other_data/gene_info.txt"
+            placeholder = "data/Other_data/darmor_test_gene.txt"
           )
         ),
         conditionalPanel(
           condition = "input.singlegene",
           ns = ns,
-          textInput(ns("gene"), "Enter gene name:", value = "BnaA10g22080D")
+          textInput(ns("gene"), "Enter gene name (e.g, BnaA10g22080D):", value = "BnaA10g22080D")
         ),
-
-        #   conditionalPanel(
-        #     condition = "!input.singlegene",
-        #     ns = ns,
-        #     fileInput(ns("genecluster"), "Upload genes: ",
-        #       multiple = FALSE,
-        #       accept = c(
-        #         "text/txt",
-        #         "text/comma-separated-values,text/plain",
-        #         ".txt"
-        #       )
-        #     )
-        #   )
-        # ),
-        # conditionalPanel(
-        #   condition = "input.ref=='ZS11'",
-        #   ns = ns,
-        #   checkboxInput(ns("singlegene1"), "Single gene?", FALSE),
-        #   conditionalPanel(
-        #     condition = "input.singlegene1",
-        #     ns = ns,
-        #     textInput(ns("gene1"), "Enter gene name:", value = "BnaA10T0110200ZS")
-        #   ),
-        #   conditionalPanel(
-        #     condition = "!input.singlegene1",
-        #     ns = ns,
-        #     fileInput(ns("genecluster1"), "Upload genes: ",
-        #       multiple = FALSE,
-        #       accept = c(
-        #         "text/txt",
-        #         "text/comma-separated-values,text/plain",
-        #         ".txt"
-        #       )
-        #     )
-        #   )
-        # ),
-        # conditionalPanel(
-        #   condition = "input.ref=='NY7'",
-        #   ns = ns,
-        #   checkboxInput(ns("singlegene2"), "Single gene?", FALSE),
-        #   conditionalPanel(
-        #     condition = "input.singlegene2",
-        #     ns = ns,
-        #     textInput(ns("gene2"), "Enter gene name:", value = "chrA01g000670.t1")
-        #   ),
-        #   conditionalPanel(
-        #     condition = "!input.singlegene2",
-        #     ns = ns,
-        #     fileInput(ns("genecluster2"), "Upload genes: ",
-        #       multiple = FALSE,
-        #       accept = c(
-        #         "text/txt",
-        #         "text/comma-separated-values,text/plain",
-        #         ".txt"
-        #       )
-        #     )
-        #   )
-        # ),
-        # conditionalPanel(
-        #   condition = "input.ref=='Tapidor'",
-        #   ns = ns,
-        #   checkboxInput(ns("singlegene3"), "Single gene?", FALSE),
-        #   conditionalPanel(
-        #     condition = "input.singlegene3",
-        #     ns = ns,
-        #     textInput(ns("gene3"), "Enter gene name:", value = "BnaA07g00690.1T")
-        #   ),
-        #   conditionalPanel(
-        #     condition = "!input.singlegene3",
-        #     ns = ns,
-        #     fileInput(ns("genecluster3"), "Upload genes: ",
-        #       multiple = FALSE,
-        #       accept = c(
-        #         "text/txt",
-        #         "text/comma-separated-values,text/plain",
-        #         ".txt"
-        #       )
-        #     )
-        #   )
-        # ),
-
         checkboxGroupInput(ns("database"), "Select annotation database", choices = database_type, selected = database_type),
         actionButton(ns("gene_submit"), strong("Submit"), styleclass = "success")
       ),
+      
+      
       conditionalPanel(
         condition = "input.type=='Accession'",
         ns = ns,
@@ -151,14 +77,15 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "input.upload_sample",
           ns = ns,
-          fileInput(ns("sample"), "Upload samples: ",
+          fileInput(ns("sample"), "Upload Samples. Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
               "text/comma-separated-values,text/plain",
               ".txt"
-            )
-          ),
+            ),
+            placeholder = "data/Other_data/Core.var.txt"
+          )
         ),
         conditionalPanel(
           condition = "!input.upload_sample",
@@ -310,7 +237,7 @@ mod_extraction_server <- function(input, output, session) {
   })
 
   database_type <- eventReactive(input$gene_submit, {
-    d <- c("geneid", "chr", "start", "end", input$database)
+    d <- c("geneid", "chr", "start", "end", "Predicted_gene_name", input$database)
     return(d)
   })
 

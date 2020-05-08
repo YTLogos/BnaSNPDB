@@ -46,6 +46,7 @@ mod_ldheatmap_ui <- function(id) {
       br(),
       br(),
       tabsetPanel(
+        tabPanel(h3("Instruction"), includeMarkdown("www/home.md")),
         tabPanel(
           h3("Results"),
           h3("LDheatmap:"),
@@ -73,8 +74,7 @@ mod_ldheatmap_ui <- function(id) {
           br(),
           br(),
           br()
-        ),
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
+        )
       )
     )
   )

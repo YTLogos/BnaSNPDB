@@ -34,6 +34,7 @@ mod_diversity_ui <- function(id) {
       br(),
       br(),
       tabsetPanel(
+        tabPanel(h3("Instruction"), includeMarkdown("www/home.md")),
         tabPanel(h3("Results"),
                  h3("Diversity Plot:"),
                  withSpinner(plotOutput(ns("div_plot"), height = 700), type = 4),
@@ -60,8 +61,7 @@ mod_diversity_ui <- function(id) {
                  br(),
                  br(),
                  br()
-        ),
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
+        )
       )
       )
   )

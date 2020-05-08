@@ -16,7 +16,7 @@ readNewData <- function(fileinfo) {
 
 readNewData_gene <- function(fileinfo) {
   if (is.null(fileinfo)) {
-    fileinfo <- list(name = "gene_info.txt", size = 1, type = "text/txt", datapath = "data/Other_data/gene_info.txt")
+    fileinfo <- list(name = "darmor_test_gene.txt", size = 1, type = "text/txt", datapath = "data/Other_data/darmor_test_gene.txt")
   }
   newdata <- read.table(file = fileinfo$datapath, header = FALSE, stringsAsFactors = FALSE)
   return(newdata)
