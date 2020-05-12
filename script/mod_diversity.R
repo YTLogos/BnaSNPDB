@@ -11,9 +11,7 @@ mod_diversity_ui <- function(id) {
   tagList(
     sidebarPanel(
       width = 3,
-      br(),
-      br(),
-      HTML("<h4><font color='red'>Parameters:</font></h4>"),
+      h2("Parameters:"),
       selectInput(ns("chr"), "Chromosome", selected = "A10", choices = chromosome),
       numericInput(ns("start"), "Start", value = "14990000"),
       numericInput(ns("end"), "End", value = "15050000"),
@@ -23,7 +21,7 @@ mod_diversity_ui <- function(id) {
       selectInput(ns("numerator"), "Numerator ecotype:", choices = c("Spring", "Semi-winter", "Winter")),
       selectInput(ns("denominator"), "Denominator ecotype:", choices = c("Winter", "Semi-winter", "Spring")),
       sliderInput(ns("step"), "Numbers of SNPs in each window:", value = 10, min = 5, max = 20),
-      checkboxGroupInput(ns("div_mut_type"), h4("Select Mutation types:"),
+      checkboxGroupInput(ns("div_mut_type"), "Select Mutation types:",
         choices = eff_type,
         selected = eff_type
       ),
@@ -31,12 +29,11 @@ mod_diversity_ui <- function(id) {
       actionButton(ns("submit"), strong("Submit"), styleclass = "success")
     ),
     mainPanel(
-      br(),
-      br(),
       tabsetPanel(
-        tabPanel(h3("Results"),
-                 h3("Diversity Plot:"),
+        tabPanel("Results",
+                 h2("Diversity Plot:"),
                  withSpinner(plotOutput(ns("div_plot"), height = 700), type = 4),
+                 br(),
                  selectInput(ns("div_fig_format"),
                              "Download figure as:",
                              choices = available_fig_formats,
@@ -47,8 +44,9 @@ mod_diversity_ui <- function(id) {
                  br(),
                  br(),
                  br(),
-                 h3("Allele Informations (Major/Minor):"),
+                 h2("Allele Informations (Major/Minor):"),
                  withSpinner(DT::dataTableOutput(ns("div_allele_info")), type = 4),
+                 br(),
                  selectInput(ns("div_snp_format"),
                              "Download data as:",
                              choices = available_data_formats,
@@ -61,7 +59,7 @@ mod_diversity_ui <- function(id) {
                  br(),
                  br()
         ),
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
+        tabPanel("Instruction", includeMarkdown("www/home.md"))
       )
       )
   )

@@ -11,9 +11,7 @@ mod_snpdistribution_ui <- function(id) {
   tagList(
     sidebarPanel(
       width = 3,
-      br(),
-      br(),
-      HTML("<h4><font color='red'>Parameters:</font></h4>"),
+      h2("Parameters:"),
       fileInput(ns("sample_type"), "Choose file. Leave blank for example run.",
         multiple = FALSE,
         accept = c(
@@ -28,7 +26,7 @@ mod_snpdistribution_ui <- function(id) {
       numericInput(ns("end"), "End", value = "15010000"),
       numericInput(ns("maf"), "Minor Allele Frequency", value = 0.05),
       selectInput(ns("reverse"), "Reverse", choices = list("TRUE", "FALSE"), selected = "FALSE"),
-      checkboxGroupInput(ns("mut_type"), h4("Select Mutation types:"),
+      checkboxGroupInput(ns("mut_type"), "Select Mutation types:",
         choices = eff_type,
         selected = eff_type
       ),
@@ -36,11 +34,10 @@ mod_snpdistribution_ui <- function(id) {
       actionButton(ns("submit"), strong("Submit"), styleclass = "success")
     ),
     mainPanel(
-      br(),
-      br(),
+      
       tabsetPanel(
-        tabPanel(h3("Results"),
-                 h3("SNPdistribution:"),
+        tabPanel("Results",
+                 h2("SNPdistribution:"),
                  withSpinner(plotOutput(ns("snp_dis")), type = 4),
                  selectInput(ns("snp_fig_format"),
                              "Download figure as:",
@@ -48,12 +45,14 @@ mod_snpdistribution_ui <- function(id) {
                              selected = NULL,
                              selectize = TRUE
                  ),
+                 br(),
                  downloadButton(ns("snp_fig_download"), "Download SNPdistribution"),
                  br(),
                  br(),
                  br(),
-                 h3("SNP Informations:"),
+                 h2("SNP Informations:"),
                  withSpinner(DT::dataTableOutput(ns("dis_snp_info")), type = 7),
+                 br(),
                  selectInput(ns("dis_snp_format"),
                              "Download data as:",
                              choices = available_data_formats,
@@ -66,7 +65,7 @@ mod_snpdistribution_ui <- function(id) {
                  br(),
                  br()
                  ),
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
+        tabPanel("Instruction", includeMarkdown("www/home.md"))
       )
       )
   )

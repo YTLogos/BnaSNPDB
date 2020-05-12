@@ -11,9 +11,7 @@ mod_ldheatmap_ui <- function(id) {
   tagList(
     sidebarPanel(
       width = 3,
-      br(),
-      br(),
-      HTML("<h4><font color='red'>Parameters:</font></h4>"),
+      h2("Parameters:"),
       selectInput(ns("chr"), "Chromosome", selected = "A10", choices = chromosome),
       numericInput(ns("start"), "Start", value = "14990000"),
       numericInput(ns("end"), "End", value = "15010000"),
@@ -22,33 +20,31 @@ mod_ldheatmap_ui <- function(id) {
       conditionalPanel(
         condition = "input.flip==1",
         ns = ns,
-        checkboxInput(ns("ldshowgene"), "Show Gene Model", FALSE),
-        conditionalPanel(
-          condition = "input.ldshowgene",
-          ns = ns,
-          numericInput(ns("ldy"), "Y:", value = 72),
-          numericInput(ns("ldw"), "W:", value = 72)
-        )
+        checkboxInput(ns("ldshowgene"), "Show Gene Model", FALSE)
+        # conditionalPanel(
+        #   condition = "input.ldshowgene",
+        #   ns = ns,
+        #   numericInput(ns("ldy"), "Y:", value = 72),
+        #   numericInput(ns("ldw"), "W:", value = 72)
+        # )
       ),
-      checkboxGroupInput(ns("ld_mut_type"), h4("Select Mutation types:"),
+      checkboxGroupInput(ns("ld_mut_type"), "Select Mutation types:",
         choices = eff_type,
         selected = eff_type
       ),
-      HTML("<h4><font color='black'>Select Accessions:</font></h4>"),
+      "Select Accessions:",
       br(),
       chooserInput(ns("ld_accession"), "Available frobs", "Selected frobs", c(), all.var.info, size = 10, multiple = TRUE),
-      br(),
       br(),
       actionButton(ns("ld_submit"), strong("Submit"), styleclass = "success")
     ),
 
     mainPanel(
-      br(),
-      br(),
       tabsetPanel(
         tabPanel(
-          h3("Results"),
-          h3("LDheatmap:"),
+          "Results",
+          br(),
+          h2("LDheatmap:"),
           withSpinner(plotOutput(ns("ldheatmap")), type = 4),
           selectInput(ns("ld_fig_format"),
             "Download figure as:",
@@ -60,8 +56,9 @@ mod_ldheatmap_ui <- function(id) {
           br(),
           br(),
           br(),
-          h3("SNP Informations:"),
+          h2("SNP Informations:"),
           withSpinner(DT::dataTableOutput(ns("ld_snp_info")), type = 7),
+          br(),
           selectInput(ns("ld_snp_format"),
             "Download data as:",
             choices = available_data_formats,
@@ -74,7 +71,7 @@ mod_ldheatmap_ui <- function(id) {
           br(),
           br()
         ),
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
+        tabPanel("Instruction", includeMarkdown("www/home.md"))
       )
     )
   )

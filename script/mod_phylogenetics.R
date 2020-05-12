@@ -3,18 +3,16 @@ mod_phylogenetics_ui <- function(id) {
   tagList(
     sidebarPanel(
       width = 3,
-      br(),
-      br(),
-      HTML("<h4><font color='red'>Parameters:</font></h4>"),
+      h2("Parameters:"),
       selectInput(ns("chr"), "Chromosome", selected = "A10", choices = chromosome),
       numericInput(ns("start"), "Start", value = "14990000"),
       numericInput(ns("end"), "End", value = "15010000"),
       numericInput(ns("maf"), "Minor Allele Frequency", value = 0.05),
-      checkboxGroupInput(ns("phylo_mut_type"), h4("Select Mutation types:"),
+      checkboxGroupInput(ns("phylo_mut_type"), "Select Mutation types:",
         choices = eff_type,
         selected = eff_type
       ),
-      HTML("<h4><font color='black'>Select Accessions:</font></h4>"),
+      "Select Accessions:",
       br(),
       chooserInput(ns("phylo_accession"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE),
       br(),
@@ -23,11 +21,9 @@ mod_phylogenetics_ui <- function(id) {
     ),
 
     mainPanel(
-      br(),
-      br(),
       tabsetPanel(
-        tabPanel(h3("Results"),
-                 h3("Phylogenetic Tree:"),
+        tabPanel("Results",
+                 h2("Phylogenetic Tree:"),
                  withSpinner(plotOutput(ns("tree")), type = 4),
                  selectInput(ns("tree_fig_format"),
                              "Download figure as:",
@@ -35,12 +31,14 @@ mod_phylogenetics_ui <- function(id) {
                              selected = NULL,
                              selectize = TRUE
                  ),
+                 br(),
                  downloadButton(ns("tree_fig_download"), "Download Phylogenetics tree"),
                  br(),
                  br(),
                  br(),
-                 h3("SNP Informations:"),
+                 h2("SNP Informations:"),
                  withSpinner(DT::dataTableOutput(ns("tree_snp_info")), type = 7),
+                 br(),
                  selectInput(ns("tree_snp_format"),
                              "Download data as:",
                              choices = available_data_formats,
@@ -53,7 +51,7 @@ mod_phylogenetics_ui <- function(id) {
                  br(),
                  br()
                  ),
-        tabPanel(h3("Instruction"), includeMarkdown("www/home.md"))
+        tabPanel("Instruction", includeMarkdown("www/home.md"))
       )
     )
   )
@@ -77,7 +75,10 @@ mod_phylogenetics_server <- function(input, output, session) {
     snpmat <- t(as.matrix(snp_data()[[1]]))
     tree <- nj(dist.gene(snpmat))
     p <- ggtree(tree, layout = "circular", branch.length = "none", size = 0.1) + ggtitle("") + theme_void()
-    p <- gheatmap(p, all.tree.info, offset = 1, width = 0.1, colnames = FALSE, color = NULL) + theme(legend.title = element_blank())
+    p <- gheatmap(p, all.tree.info, offset = 1, width = 0.1, colnames = FALSE, color = NULL) + theme(legend.title = element_blank())+
+      theme(legend.text = element_text(size = 16, face = "bold")) +
+      scale_fill_brewer(palette = "Set1") + 
+      guides(color=guide_legend(override.aes = list(size=3)))
     tree_download <<- p
     return(p)
   })

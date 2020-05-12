@@ -1,20 +1,23 @@
+source("global.R")
+
 ui <- fluidPage(
-  # tags$head(tags$style('p {color:black;}')),
+  div(img(src="database_logo.png")),
   includeCSS("www/custom.css"),
+  includeCSS("www/footer.css"),
   navbarPage(
-    title = h2("BnaSNPDB"),
-    position = "fixed-top",
+    title = "",
     header = tagList(useShinydashboard()),
     windowTitle = "SNP database of 1007 rapeseed germplasm accessions",
     theme = shinytheme("flatly"),
-    tabPanel(h3("Home"), mod_home_ui("home")),
-    tabPanel(h3("LDheatmap"), mod_ldheatmap_ui("ld")),
-    tabPanel(h3("SNP_distribution"), mod_snpdistribution_ui("dis")),
-    tabPanel(h3("Phylogenetics"), mod_phylogenetics_ui("tree")),
-    tabPanel(h3("Diversity"), mod_diversity_ui("diversity")),
-    tabPanel(h3("Extraction"), mod_extraction_ui("extract")),
-    tabPanel(h3("Documentation")),
-    tabPanel(h3("About"))
+    tabPanel("Home", mod_home_ui("home"), icon = icon("home")),
+    tabPanel("LDheatmap", mod_ldheatmap_ui("ld")),
+    tabPanel("SNP_distribution", mod_snpdistribution_ui("dis")),
+    tabPanel("Phylogenetics", mod_phylogenetics_ui("tree")),
+    tabPanel("Diversity", mod_diversity_ui("diversity")),
+    tabPanel("Extraction", mod_extraction_ui("extract"), icon = icon("search")),
+    tabPanel("Documentation", icon = icon("file-text")),
+    tabPanel("About", icon = icon("info-circle")),
+    footer = footerTagList
   )
 )
 

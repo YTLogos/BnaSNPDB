@@ -11,9 +11,7 @@ mod_extraction_ui <- function(id) {
   tagList(
     sidebarPanel(
       width = 3,
-      br(),
-      br(),
-      HTML("<h4><font color='red'>Parameters:</font></h4>"),
+      h2("Parameters:"),
       selectInput(ns("type"), "What do you want to extract?", choices = c("SNP", "Gene", "Accession")),
 
 
@@ -43,7 +41,7 @@ mod_extraction_ui <- function(id) {
           ns = ns,
           chooserInput(ns("snp_accession"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE)
         ),
-        checkboxGroupInput(ns("mut_type"), h4("Select Mutation types:"), choices = eff_type, selected = eff_type),
+        checkboxGroupInput(ns("mut_type"), "Select Mutation types:", choices = eff_type, selected = eff_type),
         actionButton(ns("snp_submit"), strong("Submit"), styleclass = "success")
       ),
 
@@ -58,7 +56,7 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "!input.singlegene",
           ns = ns,
-          fileInput(ns("genecluster"), "Upload Genes. Leave blank for example run.",
+          fileInput(ns("genecluster"), "Upload genes.Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
@@ -85,7 +83,7 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "input.upload_sample",
           ns = ns,
-          fileInput(ns("sample"), "Upload Samples. Leave blank for example run.",
+          fileInput(ns("sample"), "Upload samples.Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
@@ -99,7 +97,7 @@ mod_extraction_ui <- function(id) {
           condition = "!input.upload_sample",
           ns = ns,
           br(),
-          HTML("<h4><font color='black'>Select Accessions:</font></h4>"),
+          "Select Accessions:",
           chooserInput(ns("accession_select"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE),
         ),
         br(),
@@ -111,9 +109,7 @@ mod_extraction_ui <- function(id) {
 
     mainPanel(
       conditionalPanel(
-        br(),
-        br(),
-        h3("SNP data:"),
+        h2("SNP data:"),
         condition = "input.type=='SNP'",
         ns = ns,
         DT::dataTableOutput(ns("snp_info")),
@@ -128,9 +124,7 @@ mod_extraction_ui <- function(id) {
       ),
 
       conditionalPanel(
-        br(),
-        br(),
-        h3("Gene annotation:"),
+        h2("Gene annotation:"),
         condition = "input.type=='Gene'",
         ns = ns,
         DT::dataTableOutput(ns("gene_info")),
@@ -145,14 +139,11 @@ mod_extraction_ui <- function(id) {
         br(),
         br(),
         br(),
-        br(),
         br()
       ),
 
       conditionalPanel(
-        br(),
-        br(),
-        h3("Geographic distribution:"),
+        h2("Geographic distribution:"),
         condition = "input.type=='Accession'",
         ns = ns,
         plotOutput(ns("accession_dis")),
@@ -166,7 +157,7 @@ mod_extraction_ui <- function(id) {
         downloadButton(ns("sample_fig_download"), "Download Geographic distribution"),
         br(),
         br(),
-        h3("SNP data:"),
+        h2("SNP data:"),
         DT::dataTableOutput(ns("aceession_info")),
         br(),
         selectInput(ns("sample_format"),
@@ -358,7 +349,7 @@ mod_extraction_server <- function(input, output, session) {
 
   geographic_plot <- eventReactive(input$accession_submit, {
     p <- geographic_map +
-      geom_point(data = sample_info(), aes(long, lat, color = type, group = type), size = 1.5)
+      geom_point(data = sample_info(), aes(long, lat, color = Type, group = Type), size = 1.5)
     return(p)
   })
 
@@ -367,14 +358,14 @@ mod_extraction_server <- function(input, output, session) {
     print(geographic_plot())
   })
   output$aceession_info <- renderDT({
-    DT::datatable(sample_info(),
+    DT::datatable(sample_info()[,-c(5,6)],
       rownames = FALSE,
       filter = "bottom",
       options = list(
         pageLength = 10,
         scrollX = TRUE,
-        autoWidth = FALSE,
-        columnDefs = list(list(className = "dt-right", target = "_all"))
+        autoWidth = TRUE,
+        columnDefs = list(list(className = "dt-center", target = "_all"))
       ), escape = FALSE
     )
   })
@@ -404,7 +395,7 @@ mod_extraction_server <- function(input, output, session) {
 
   output$accession_download <- downloadHandler(
     filename = function() {
-      glue::glue(".Rapeseed.accession.info.{input$sample_format}")
+      glue::glue("Rapeseed.selected_accession.info.{input$sample_format}")
     },
     content = function(file) {
       if (input$sample_format == "txt") {
