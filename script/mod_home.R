@@ -18,7 +18,7 @@ mod_home_ui <- function(id) {
       valueBox(188, "Spring Ecotypes", color = "olive", width = 2)
     ),
     column(width= 8,includeMarkdown("www/home.md"), offset = 2)
-  )
+    )
 }
 
 mod_home_server <- function(input, output, session) {

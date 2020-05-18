@@ -37,6 +37,8 @@ source("script/chooser.R")
 source("script/readNewData.R")
 source("script/snp_distribution.R")
 source("script/diversity.R")
+source("script/box_format.R")
+source("script/homepage.R")
 
 footerTagList <- list(
   tags$footer(id = "myFooter",
@@ -46,7 +48,7 @@ footerTagList <- list(
 
 load("./data/Other_data/geneinfo.RData")
 load("./data/Other_data/gffinfo.RData")
-load("./data/Other_data/darmor_gene.RData")
+load("./data/Other_data/Ref.gene.anno.RData")
 load("./data/Other_data/accession_map.RData")
 
 chromosome <- c(

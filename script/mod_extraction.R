@@ -50,7 +50,7 @@ mod_extraction_ui <- function(id) {
       conditionalPanel(
         condition = "input.type=='Gene'",
         ns = ns,
-        selectInput(ns("ref"), "Reference Genome", choices = c("Darmor-bzh", "ZS11", "NY7", "Tapidor")),
+        selectInput(ns("ref"), "Reference Genome", choices = c("Darmor", "ZS11", "NY7", "Tapidor")),
         checkboxInput(ns("singlegene"), "Extract single gene?", FALSE),
 
         conditionalPanel(
@@ -261,7 +261,9 @@ mod_extraction_server <- function(input, output, session) {
 
 
   gene_sample <- eventReactive(input$gene_submit, {
-    if (input$ref == "Darmor-bzh") {
+    # gene_file <- switch(input$ref, Darmor="darmor_gene_anno",ZS11="zs11_gene_anno",NY7="ny7_gene_anno",Tapidor="tapidor_gene_anno")
+    # return(gene_file)
+    if (input$ref == "Darmor") {
       gene_file <- darmor_gene_anno
     } else if (input$ref == "ZS11") {
       gene_file <- zs11_gene_anno
@@ -291,6 +293,7 @@ mod_extraction_server <- function(input, output, session) {
   gene_anno <- eventReactive(input$gene_submit, {
     gene_sample()[gene_sample()[, 1] %in% gene_id(), colnames(gene_sample()) %in% database_type()]
   })
+  
   output$gene_info <- renderDT({
     DT::datatable(gene_anno(),
       rownames = FALSE,
