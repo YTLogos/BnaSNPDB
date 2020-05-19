@@ -82,7 +82,7 @@
 
 @media (min-width: 768px){
 .col-sm-7 {
-    width: 25%;
+    width: 15%;
 }
 }
 
@@ -90,3 +90,4 @@
     width: 100%;
     height: 200px;
     background-color: #000000;
+}
