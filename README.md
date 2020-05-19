@@ -1,6 +1,6 @@
 ## BnaSNPDB: SNP Database of *Brassica napuss* L. 
 
-<img src="www/img/BnaSNPDB.png" align="center" width="1000" />
+<img src="www/img/BnaSNPDB.png" align="cenetr" width="720" />
 
 ## Overview
 
