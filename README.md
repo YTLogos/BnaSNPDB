@@ -1,4 +1,4 @@
-## BnaSNPDB: SNP Database of *Brassica napuss* L. 
+## BnaSNPDB: SNP Database of *Brassica napus* L. 
 
 <img src="www/img/BnaSNPDB.png" align="center" width="900" />
 
