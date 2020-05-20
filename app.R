@@ -1,12 +1,11 @@
 source("global.R")
 
 ui <- fluidPage(
-  div(img(src="database_logo.png")),
+  div(img(src = "database_logo.png")),
   includeCSS("www/custom.css"),
   includeCSS("www/footer.css"),
   navbarPage(
     title = "",
-    # header = tagList(useShinydashboard()),
     windowTitle = "SNP database of 1007 rapeseed germplasm accessions",
     theme = shinytheme("flatly"),
     tabPanel("Home", homepage, icon = icon("home")),

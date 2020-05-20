@@ -1,6 +1,6 @@
 #' Title
 #'
-#' @param id 
+#' @param id
 #'
 #' @return
 #' @export
@@ -41,7 +41,7 @@ mod_extraction_ui <- function(id) {
           ns = ns,
           chooserInput(ns("snp_accession"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE)
         ),
-        checkboxGroupInput(ns("mut_type"), "Select Mutation types:", choices = eff_type, selected = eff_type),
+        checkboxGroupInput(ns("muttype"), "Select Mutation types:", choices = eff_type, selected = eff_type),
         actionButton(ns("snp_submit"), strong("Submit"), styleclass = "success")
       ),
 
@@ -112,7 +112,7 @@ mod_extraction_ui <- function(id) {
         h2("SNP data:"),
         condition = "input.type=='SNP'",
         ns = ns,
-        DT::dataTableOutput(ns("snp_info")),
+        withSpinner(DT::dataTableOutput(ns("snp_info")), type = 7),
         br(),
         selectInput(ns("snp_format"),
           "Download data as:",
@@ -127,7 +127,7 @@ mod_extraction_ui <- function(id) {
         h2("Gene annotation:"),
         condition = "input.type=='Gene'",
         ns = ns,
-        DT::dataTableOutput(ns("gene_info")),
+        withSpinner(DT::dataTableOutput(ns("gene_info")), type = 7),
         br(),
         selectInput(ns("gene_format"),
           "Download data as:",
@@ -146,7 +146,7 @@ mod_extraction_ui <- function(id) {
         h2("Geographic distribution:"),
         condition = "input.type=='Accession'",
         ns = ns,
-        plotOutput(ns("accession_dis")),
+        withSpinner(plotOutput(ns("accession_dis")), type = 7),
         br(),
         selectInput(ns("sample_fig_format"),
           "Download figure as:",
@@ -158,7 +158,7 @@ mod_extraction_ui <- function(id) {
         br(),
         br(),
         h2("SNP data:"),
-        DT::dataTableOutput(ns("aceession_info")),
+        withSpinner(DT::dataTableOutput(ns("aceession_info")), type = 7),
         br(),
         selectInput(ns("sample_format"),
           "Download data as:",
@@ -181,9 +181,9 @@ mod_extraction_ui <- function(id) {
 
 #' Title
 #'
-#' @param input 
-#' @param output 
-#' @param session 
+#' @param input
+#' @param output
+#' @param session
 #'
 #' @return
 #' @export
@@ -293,7 +293,7 @@ mod_extraction_server <- function(input, output, session) {
   gene_anno <- eventReactive(input$gene_submit, {
     gene_sample()[gene_sample()[, 1] %in% gene_id(), colnames(gene_sample()) %in% database_type()]
   })
-  
+
   output$gene_info <- renderDT({
     DT::datatable(gene_anno(),
       rownames = FALSE,
@@ -361,7 +361,7 @@ mod_extraction_server <- function(input, output, session) {
     print(geographic_plot())
   })
   output$aceession_info <- renderDT({
-    DT::datatable(sample_info()[,-c(5,6)],
+    DT::datatable(sample_info()[, -c(5, 6)],
       rownames = FALSE,
       filter = "bottom",
       options = list(
