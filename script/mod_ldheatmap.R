@@ -40,39 +40,32 @@ mod_ldheatmap_ui <- function(id) {
     ),
 
     mainPanel(
-      tabsetPanel(
-        tabPanel(
-          "Results",
-          br(),
-          h2("LDheatmap:"),
-          withSpinner(plotOutput(ns("ldheatmap")), type = 4),
-          selectInput(ns("ld_fig_format"),
-            "Download figure as:",
-            choices = available_fig_formats,
-            selected = NULL,
-            selectize = TRUE
-          ),
-          downloadButton(ns("ld_fig_download"), "Download LDheadmap"),
-          br(),
-          br(),
-          br(),
-          h2("SNP Informations:"),
-          withSpinner(DT::dataTableOutput(ns("ld_snp_info")), type = 7),
-          br(),
-          selectInput(ns("ld_snp_format"),
-            "Download data as:",
-            choices = available_data_formats,
-            selected = NULL,
-            selectize = TRUE
-          ),
-          downloadButton(ns("ld_data_download"), "Download SNP Data"),
-          br(),
-          br(),
-          br(),
-          br()
-        ),
-        tabPanel("Instruction", includeMarkdown("www/home.md"))
-      )
+      h2("LDheatmap:"),
+      withSpinner(plotOutput(ns("ldheatmap")), type = 4),
+      selectInput(ns("ld_fig_format"),
+        "Download figure as:",
+        choices = available_fig_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      downloadButton(ns("ld_fig_download"), "Download LDheadmap"),
+      br(),
+      br(),
+      br(),
+      h2("SNP Informations:"),
+      withSpinner(DT::dataTableOutput(ns("ld_snp_info")), type = 7),
+      br(),
+      selectInput(ns("ld_snp_format"),
+        "Download data as:",
+        choices = available_data_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      downloadButton(ns("ld_data_download"), "Download SNP Data"),
+      br(),
+      br(),
+      br(),
+      br()
     )
   )
 }

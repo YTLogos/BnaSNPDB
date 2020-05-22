@@ -21,38 +21,33 @@ mod_phylogenetics_ui <- function(id) {
     ),
 
     mainPanel(
-      tabsetPanel(
-        tabPanel("Results",
-                 h2("Phylogenetic Tree:"),
-                 withSpinner(plotOutput(ns("tree")), type = 4),
-                 selectInput(ns("tree_fig_format"),
-                             "Download figure as:",
-                             choices = available_fig_formats,
-                             selected = NULL,
-                             selectize = TRUE
-                 ),
-                 br(),
-                 downloadButton(ns("tree_fig_download"), "Download Phylogenetics tree"),
-                 br(),
-                 br(),
-                 br(),
-                 h2("SNP Informations:"),
-                 withSpinner(DT::dataTableOutput(ns("tree_snp_info")), type = 7),
-                 br(),
-                 selectInput(ns("tree_snp_format"),
-                             "Download data as:",
-                             choices = available_data_formats,
-                             selected = NULL,
-                             selectize = TRUE
-                 ),
-                 downloadButton(ns("tree_data_download"), "Download SNP Data"),
-                 br(),
-                 br(),
-                 br(),
-                 br()
-                 ),
-        tabPanel("Instruction", includeMarkdown("www/home.md"))
-      )
+      h2("Phylogenetic Tree:"),
+      withSpinner(plotOutput(ns("tree")), type = 4),
+      selectInput(ns("tree_fig_format"),
+        "Download figure as:",
+        choices = available_fig_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      br(),
+      downloadButton(ns("tree_fig_download"), "Download Phylogenetics tree"),
+      br(),
+      br(),
+      br(),
+      h2("SNP Informations:"),
+      withSpinner(DT::dataTableOutput(ns("tree_snp_info")), type = 7),
+      br(),
+      selectInput(ns("tree_snp_format"),
+        "Download data as:",
+        choices = available_data_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      downloadButton(ns("tree_data_download"), "Download SNP Data"),
+      br(),
+      br(),
+      br(),
+      br()
     )
   )
 }
@@ -75,10 +70,10 @@ mod_phylogenetics_server <- function(input, output, session) {
     snpmat <- t(as.matrix(snp_data()[[1]]))
     tree <- nj(dist.gene(snpmat))
     p <- ggtree(tree, layout = "circular", branch.length = "none", size = 0.1) + ggtitle("") + theme_void()
-    p <- gheatmap(p, all.tree.info, offset = 1, width = 0.1, colnames = FALSE, color = NULL) + theme(legend.title = element_blank())+
+    p <- gheatmap(p, all.tree.info, offset = 1, width = 0.1, colnames = FALSE, color = NULL) + theme(legend.title = element_blank()) +
       theme(legend.text = element_text(size = 16, face = "bold")) +
-      scale_fill_brewer(palette = "Set1") + 
-      guides(color=guide_legend(override.aes = list(size=3)))
+      scale_fill_brewer(palette = "Set1") +
+      guides(color = guide_legend(override.aes = list(size = 3)))
     tree_download <<- p
     return(p)
   })
