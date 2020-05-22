@@ -74,7 +74,7 @@ homepage <- dashboardPage(
             width = 6,
             title = "Extraction",
             imgSrc = "img/extraction.png",
-            text = "This module allows user to extract the detail informations of SNPs, annotaion of genes and essential information on the 1007 rapeseed germplasm accession used in the BnaSNPDB."
+            text = "This module allows user to extract the detail informations of SNPs, annotation of genes and essential information on the 1007 rapeseed germplasm accessions used in the BnaSNPDB."
           )
         )
       )

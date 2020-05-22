@@ -29,39 +29,34 @@ mod_diversity_ui <- function(id) {
       actionButton(ns("submit"), strong("Submit"), styleclass = "success")
     ),
     mainPanel(
-      tabsetPanel(
-        tabPanel("Results",
-                 h2("Diversity Plot:"),
-                 withSpinner(plotOutput(ns("div_plot"), height = 700), type = 4),
-                 br(),
-                 selectInput(ns("div_fig_format"),
-                             "Download figure as:",
-                             choices = available_fig_formats,
-                             selected = NULL,
-                             selectize = TRUE
-                 ),
-                 downloadButton(ns("div_fig_download"), "Download Diversity Plot"),
-                 br(),
-                 br(),
-                 br(),
-                 h2("Allele Informations (Major/Minor):"),
-                 withSpinner(DT::dataTableOutput(ns("div_allele_info")), type = 4),
-                 br(),
-                 selectInput(ns("div_snp_format"),
-                             "Download data as:",
-                             choices = available_data_formats,
-                             selected = NULL,
-                             selectize = TRUE
-                 ),
-                 downloadButton(ns("div_data_download"), "Download Allele Data"),
-                 br(),
-                 br(),
-                 br(),
-                 br()
-        ),
-        tabPanel("Instruction", includeMarkdown("www/home.md"))
-      )
-      )
+      h2("Diversity Plot:"),
+      withSpinner(plotOutput(ns("div_plot"), height = 700), type = 4),
+      br(),
+      selectInput(ns("div_fig_format"),
+        "Download figure as:",
+        choices = available_fig_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      downloadButton(ns("div_fig_download"), "Download Diversity Plot"),
+      br(),
+      br(),
+      br(),
+      h2("Allele Informations (Major/Minor):"),
+      withSpinner(DT::dataTableOutput(ns("div_allele_info")), type = 4),
+      br(),
+      selectInput(ns("div_snp_format"),
+        "Download data as:",
+        choices = available_data_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      downloadButton(ns("div_data_download"), "Download Allele Data"),
+      br(),
+      br(),
+      br(),
+      br()
+    )
   )
 }
 
@@ -84,50 +79,50 @@ mod_diversity_server <- function(input, output, session) {
     snp_end <- input$end
     groups <- input$groups
     numerator <- input$numerator
-    denominator <-  input$denominator
-    step <-  input$step
-    muttype <-  input$div_mut_type
+    denominator <- input$denominator
+    step <- input$step
+    muttype <- input$div_mut_type
     maf <- input$maf
     return(list(snp_chr, snp_start, snp_end, groups, numerator, denominator, step, muttype, maf))
   })
   diversity_plot <- reactive({
     diversity(chr = par_list()[[1]], start = par_list()[[2]], end = par_list()[[3]], groups = par_list()[[4]], numerator = par_list()[[5]], denominator = par_list()[[6]], step = par_list()[[7]], muttype = par_list()[[8]], maf = par_list()[[9]], show.gene = input$show)
   })
-  allele.info <- eventReactive(input$submit,{
+  allele.info <- eventReactive(input$submit, {
     extractallele(chr = input$chr, start = input$start, end = input$end, accession = input$groups, muttype = input$div_mut_type, maf = input$maf)[[2]]
   })
   output$div_plot <- renderPlot({
     diversity_plot()
   })
-  
+
   output$div_allele_info <- renderDT({
     DT::datatable(allele.info()[, c(1:10)],
-                  rownames = FALSE,
-                  filter = "bottom",
-                  options = list(
-                    pageLength = 10,
-                    scrollX = TRUE,
-                    columnDefs = list(list(className = "dt-right", target = "_all"))
-                  )
+      rownames = FALSE,
+      filter = "bottom",
+      options = list(
+        pageLength = 10,
+        scrollX = TRUE,
+        columnDefs = list(list(className = "dt-right", target = "_all"))
+      )
     )
   })
-  
-#############  DT::datatable   download buttons  ##############
+
+  #############  DT::datatable   download buttons  ##############
   # output$div_allele_info <- renderDT({
   #   DT::datatable(allele.info()[, c(1:10)],
   #                 extensions = 'Buttons', options = list(
   #                   dom = 'Bfrtip',
-  #                   buttons = 
+  #                   buttons =
   #                     list('copy', 'print', list(
   #                       extend = 'collection',
   #                       buttons = c('csv', 'excel', 'pdf'),
   #                       text = 'Download'
   #                     ))
-  #                   
+  #
   #                 )
   #   )
   # })
-  
+
   output$div_fig_download <- downloadHandler(
     filename = function() {
       glue::glue("{par_list()[[1]]}_{par_list()[[2]]}_{par_list()[[3]]}.diversity.{input$div_fig_format}")
@@ -150,7 +145,7 @@ mod_diversity_server <- function(input, output, session) {
       dev.off()
     }
   )
-  
+
   output$div_data_download <- downloadHandler(
     filename = function() {
       glue::glue("{par_list()[[1]]}_{par_list()[[2]]}_{par_list()[[3]]}.allele.data.{input$div_snp_format}")
@@ -167,6 +162,4 @@ mod_diversity_server <- function(input, output, session) {
       }
     }
   )
-  
-  
 }

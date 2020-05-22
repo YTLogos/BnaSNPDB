@@ -34,40 +34,34 @@ mod_snpdistribution_ui <- function(id) {
       actionButton(ns("submit"), strong("Submit"), styleclass = "success")
     ),
     mainPanel(
-      
-      tabsetPanel(
-        tabPanel("Results",
-                 h2("SNPdistribution:"),
-                 withSpinner(plotOutput(ns("snp_dis")), type = 4),
-                 selectInput(ns("snp_fig_format"),
-                             "Download figure as:",
-                             choices = available_fig_formats,
-                             selected = NULL,
-                             selectize = TRUE
-                 ),
-                 br(),
-                 downloadButton(ns("snp_fig_download"), "Download SNPdistribution"),
-                 br(),
-                 br(),
-                 br(),
-                 h2("SNP Informations:"),
-                 withSpinner(DT::dataTableOutput(ns("dis_snp_info")), type = 7),
-                 br(),
-                 selectInput(ns("dis_snp_format"),
-                             "Download data as:",
-                             choices = available_data_formats,
-                             selected = NULL,
-                             selectize = TRUE
-                 ),
-                 downloadButton(ns("snpdis_data_download"), "Download SNP Data"),
-                 br(),
-                 br(),
-                 br(),
-                 br()
-                 ),
-        tabPanel("Instruction", includeMarkdown("www/home.md"))
-      )
-      )
+      h2("SNPdistribution:"),
+      withSpinner(plotOutput(ns("snp_dis")), type = 4),
+      selectInput(ns("snp_fig_format"),
+        "Download figure as:",
+        choices = available_fig_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      br(),
+      downloadButton(ns("snp_fig_download"), "Download SNPdistribution"),
+      br(),
+      br(),
+      br(),
+      h2("SNP Informations:"),
+      withSpinner(DT::dataTableOutput(ns("dis_snp_info")), type = 7),
+      br(),
+      selectInput(ns("dis_snp_format"),
+        "Download data as:",
+        choices = available_data_formats,
+        selected = NULL,
+        selectize = TRUE
+      ),
+      downloadButton(ns("snpdis_data_download"), "Download SNP Data"),
+      br(),
+      br(),
+      br(),
+      br()
+    )
   )
 }
 
