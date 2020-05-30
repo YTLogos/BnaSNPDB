@@ -12,10 +12,26 @@ mod_phylogenetics_ui <- function(id) {
         choices = eff_type,
         selected = eff_type
       ),
-      "Select Accessions:",
-      br(),
-      chooserInput(ns("phylo_accession"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE),
-      br(),
+      h4(strong("Select samples:")),
+      checkboxInput(ns("upload_sample"), "Upload Your Samples?", FALSE),
+      conditionalPanel(
+        condition = "input.upload_sample",
+        ns = ns,
+        fileInput(ns("sample"), "Upload samples.Leave blank for example run.",
+          multiple = FALSE,
+          accept = c(
+            "text/txt",
+            "text/comma-separated-values,text/plain",
+            ".txt"
+          ),
+          placeholder = "data/Other_data/Core.var.txt"
+        )
+      ),
+      conditionalPanel(
+        condition = "!input.upload_sample",
+        ns = ns,
+        chooserInput(ns("phylo_accession"), "Available frobs", "Selected frobs", c(), all.var.info, size = 10, multiple = TRUE)
+      ),
       br(),
       actionButton(ns("phylo_submit"), strong("Submit"), styleclass = "success")
     ),
@@ -62,8 +78,26 @@ mod_phylogenetics_server <- function(input, output, session) {
     return(list(phylo_chr, phylo_start, phylo_end))
   })
 
+  sample <- reactive({
+    if (input$upload_sample) {
+      sample <- readNewData_sample(fileinfo = input$sample)
+      id <- as.character(sample$V1)
+    } else {
+      sample <- sapply(input$phylo_accession$selected, function(x) {
+        if (x %in% c("Winter", "Semi-winter", "Spring", "Core")) {
+          var <- readLines(paste0("./data/Other_data/", x, ".var.txt"))
+          return(var)
+        } else {
+          return(x)
+        }
+      })
+      id <- unique(unlist(sample))
+    }
+    return(id)
+  })
+
   snp_data <- eventReactive(input$phylo_submit, {
-    extractsnp(chr = input$chr, start = input$start, end = input$end, muttype = input$phylo_mut_type, accession = input$phylo_accession$selected, maf = input$maf)
+    extractsnp(chr = input$chr, start = input$start, end = input$end, muttype = input$phylo_mut_type, accession = sample(), maf = input$maf)
   })
 
   phylo_tree <- reactive({

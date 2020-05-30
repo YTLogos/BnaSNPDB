@@ -32,9 +32,26 @@ mod_ldheatmap_ui <- function(id) {
         choices = eff_type,
         selected = eff_type
       ),
-      "Select Accessions:",
-      br(),
-      chooserInput(ns("ld_accession"), "Available frobs", "Selected frobs", c(), all.var.info, size = 10, multiple = TRUE),
+      h4(strong("Select samples:")),
+      checkboxInput(ns("upload_sample"), "Upload Your Samples?", FALSE),
+      conditionalPanel(
+        condition = "input.upload_sample",
+        ns = ns,
+        fileInput(ns("sample"), "Upload samples.Leave blank for example run.",
+          multiple = FALSE,
+          accept = c(
+            "text/txt",
+            "text/comma-separated-values,text/plain",
+            ".txt"
+          ),
+          placeholder = "data/Other_data/Core.var.txt"
+        )
+      ),
+      conditionalPanel(
+        condition = "!input.upload_sample",
+        ns = ns,
+        chooserInput(ns("ld_accession"), "Available frobs", "Selected frobs", c(), all.var.info, size = 10, multiple = TRUE)
+      ),
       br(),
       actionButton(ns("ld_submit"), strong("Submit"), styleclass = "success")
     ),
@@ -79,10 +96,28 @@ mod_ldheatmap_server <- function(input, output, session) {
     return(list(ld_chr, ld_start, ld_end))
   })
 
+  sample <- reactive({
+    if (input$upload_sample) {
+      sample <- readNewData_sample(fileinfo = input$sample)
+      id <- as.character(sample$V1)
+    } else {
+      sample <- sapply(input$ld_accession$selected, function(x) {
+        if (x %in% c("Winter", "Semi-winter", "Spring", "Core")) {
+          var <- readLines(paste0("./data/Other_data/", x, ".var.txt"))
+          return(var)
+        } else {
+          return(x)
+        }
+      })
+      id <- unique(unlist(sample))
+    }
+    return(id)
+  })
+
   snp_data <- eventReactive(input$ld_submit, {
     extractsnp(
       chr = input$chr, start = input$start, end = input$end,
-      muttype = input$ld_mut_type, accession = input$ld_accession$selected, maf = input$maf
+      muttype = input$ld_mut_type, accession = sample(), maf = input$maf
     )
   })
   ldheatmap_fig <- reactive({
