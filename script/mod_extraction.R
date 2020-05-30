@@ -22,11 +22,12 @@ mod_extraction_ui <- function(id) {
         numericInput(ns("start"), "Start", value = "14990000"),
         numericInput(ns("end"), "End", value = "15010000"),
         numericInput(ns("maf"), "Minor Allele Frequency", value = 0.05),
-        radioButtons(ns("snp_sample_choose"), "Do You Need Upload Your Samples?", list("FALSE" = 0, "TRUE" = 1), selected = "0"),
+        h4(strong("Select samples:")),
+        checkboxInput(ns("upload_sample"), "Upload Your Samples?", FALSE),
         conditionalPanel(
-          condition = "input.snp_sample_choose==1",
+          condition = "input.upload_sample",
           ns = ns,
-          fileInput(ns("snp_sample"), "Upload Samples. Leave blank for example run.",
+          fileInput(ns("sample"), "Upload samples.Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
@@ -36,16 +37,15 @@ mod_extraction_ui <- function(id) {
             placeholder = "data/Other_data/Core.var.txt"
           )
         ),
+
         conditionalPanel(
-          condition = "input.snp_sample_choose==0",
+          condition = "!input.upload_sample",
           ns = ns,
-          chooserInput(ns("snp_accession"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE)
+          chooserInput(ns("snp_accession"), "Available frobs", "Selected frobs", c(), all.var.info, size = 10, multiple = TRUE)
         ),
         checkboxGroupInput(ns("muttype"), "Select Mutation types:", choices = eff_type, selected = eff_type),
         actionButton(ns("snp_submit"), strong("Submit"), styleclass = "success")
       ),
-
-
 
       conditionalPanel(
         condition = "input.type=='Gene'",
@@ -191,17 +191,26 @@ mod_extraction_ui <- function(id) {
 #' @examples
 mod_extraction_server <- function(input, output, session) {
   ns <- session$ns
-  snp_sample <- reactive({
-    if (input$snp_sample_choose == "1") {
-      df <- readNewData_sample(fileinfo = input$snp_sample)
-      df <- as.character(df$V1)
+  sample <- reactive({
+    if (input$upload_sample) {
+      sample <- readNewData_sample(fileinfo = input$sample)
+      id <- as.character(sample$V1)
     } else {
-      df <- input$snp_accession$selected
+      sample <- sapply(input$ld_accession$selected, function(x) {
+        if (x %in% c("Winter", "Semi-winter", "Spring", "Core")) {
+          var <- readLines(paste0("./data/Other_data/", x, ".var.txt"))
+          return(var)
+        } else {
+          return(x)
+        }
+      })
+      id <- unique(unlist(sample))
     }
-    return(df)
+    return(id)
   })
+
   snp_data <- eventReactive(input$snp_submit, {
-    extractsnp(chr = input$chr, start = input$start, end = input$end, accession = snp_sample(), muttype = input$muttype, maf = input$maf)
+    extractsnp(chr = input$chr, start = input$start, end = input$end, accession = sample(), muttype = input$muttype, maf = input$maf)
   })
 
   output$snp_info <- renderDT({
