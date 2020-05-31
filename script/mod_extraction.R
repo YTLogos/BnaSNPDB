@@ -84,7 +84,7 @@ mod_extraction_ui <- function(id) {
         conditionalPanel(
           condition = "input.upload_sample_1",
           ns = ns,
-          fileInput(ns("sample"), "Upload samples.Leave blank for example run.",
+          fileInput(ns("sample_var"), "Upload samples.Leave blank for example run.",
             multiple = FALSE,
             accept = c(
               "text/txt",
@@ -338,7 +338,7 @@ mod_extraction_server <- function(input, output, session) {
 
   sample_selected <- eventReactive(input$accession_submit, {
     if (input$upload_sample_1) {
-      sample <- readNewData_sample(fileinfo = input$sample)
+      sample <- readNewData_sample(fileinfo = input$sample_var)
       id <- as.character(sample$V1)
     } else {
       sample <- sapply(input$accession_select$selected, function(x) {
