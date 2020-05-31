@@ -15,19 +15,21 @@ homepage <- dashboardPage(
         p("The SNP database of", em("Brassica napus"), "L. (BnaSNPDB) is an interactive web-based platform and set of analytic tools for effcient retrieve and analysis of SNPs among 1007 rapeseed germplasm accessions based on the data reported by previous research (Wu et al., 2019).")
       )
     ),
-    
+
     column(
       width = 10,
       offset = 1,
       sectionBox(
         title = "What's Inside",
         fluidRow(
-          valueBox("2,404,340", "High Quality SNPs", width = 2),
-          valueBox("1,007", "Germplasm Collections", color = "purple", width = 2),
-          valueBox(39, "Countries", color = "yellow", width = 2),
-          valueBox(658, "Winter Ecotypes", color = "fuchsia", width = 2),
-          valueBox(145, "Semi-winter Ecotypes", color = "navy", width = 2),
-          valueBox(188, "Spring Ecotypes", color = "olive", width = 2)
+          valueBox("2,404,340", "High Quality SNPs", width = 4),
+          valueBox("1,007", "Germplasm Collections", color = "purple", width = 4),
+          valueBox(39, "Countries", color = "yellow", width = 4)
+        ),
+        fluidRow(
+          valueBox(658, "Winter Ecotypes", color = "fuchsia", width = 4),
+          valueBox(145, "Semi-winter Ecotypes", color = "navy", width = 4),
+          valueBox(188, "Spring Ecotypes", color = "olive", width = 4),
         )
       )
     ),
@@ -39,7 +41,7 @@ homepage <- dashboardPage(
         title = "Analysis Modules",
         messageBox(
           width = 12,
-          p("We here present 5 modules to retrieve and analyze the SNP dataset. Within each module, the user can select different parameters to retrieve and analyze the SNP dataset. You can find some example figures that these modules can generate in the manuscript ",em("Wu et al. Whole-Genome Resequencing of a Worldwide Collection of Rapeseed Accessions Reveals the Genetic Basis of Ecotype Divergence, Molecular Plant (2019)"), "and manuscript",em("Xuan et al. Genome-wide association study reveals new genes involved in leaf trichome formation in polyploid oilseed rape (Brassica napus L.), Plant, Cell & Environment (2019)."))
+          p("We here present 5 modules to retrieve and analyze the SNP dataset. Within each module, the user can select different parameters to retrieve and analyze the SNP dataset. You can find some example figures that these modules can generate in the manuscript ", em("Wu et al. Whole-Genome Resequencing of a Worldwide Collection of Rapeseed Accessions Reveals the Genetic Basis of Ecotype Divergence, Molecular Plant (2019)"), "and manuscript", em("Xuan et al. Genome-wide association study reveals new genes involved in leaf trichome formation in polyploid oilseed rape (Brassica napus L.), Plant, Cell & Environment (2019)."))
         ),
         fluidRow(
           module_Box(
@@ -79,17 +81,20 @@ homepage <- dashboardPage(
         )
       )
     ),
-    
+
     fluidRow(
       column(
-        width = 10, 
-        offset = 1, 
+        width = 10,
+        offset = 1,
         box(
           title = "More about of the SNP Dataset",
           width = 12,
           solidHeader = TRUE,
           collapsible = TRUE,
           status = "warning",
-          includeMarkdown("www/home.md"))))
+          includeMarkdown("www/home.md")
+        )
+      )
+    )
   )
 )
