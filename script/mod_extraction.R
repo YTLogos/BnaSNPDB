@@ -79,9 +79,10 @@ mod_extraction_ui <- function(id) {
       conditionalPanel(
         condition = "input.type=='Accession'",
         ns = ns,
-        checkboxInput(ns("upload_sample"), "Upload Your Samples?", FALSE),
+        h4(strong("Select samples:")),
+        checkboxInput(ns("upload_sample_1"), "Upload Your Samples?", FALSE),
         conditionalPanel(
-          condition = "input.upload_sample",
+          condition = "input.upload_sample_1",
           ns = ns,
           fileInput(ns("sample"), "Upload samples.Leave blank for example run.",
             multiple = FALSE,
@@ -94,9 +95,8 @@ mod_extraction_ui <- function(id) {
           )
         ),
         conditionalPanel(
-          condition = "!input.upload_sample",
+          condition = "!input.upload_sample_1",
           ns = ns,
-          br(),
           "Select Accessions:",
           chooserInput(ns("accession_select"), "Available frobs", "Selected frobs", leftChoices = c(), rightChoices = all.var.info, size = 10, multiple = TRUE),
         ),
@@ -337,7 +337,7 @@ mod_extraction_server <- function(input, output, session) {
 
 
   sample_selected <- eventReactive(input$accession_submit, {
-    if (input$upload_sample) {
+    if (input$upload_sample_1) {
       sample <- readNewData_sample(fileinfo = input$sample)
       id <- as.character(sample$V1)
     } else {
