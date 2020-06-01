@@ -35,7 +35,7 @@ module_Box <- function(..., title, imgSrc, text) {
     fluidRow(
       column(
         width = 4,
-        shiny::img(src = imgSrc, width = "100%")
+        div(style = "margin-left:5px;margin-right:0px;margin-top:0px;",shiny::img(src = imgSrc, width = "100%"))
       ),
       column(
         width = 8,
