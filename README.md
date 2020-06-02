@@ -14,7 +14,7 @@ The portal is built entirely in **R** and **Shiny** using the Rstudio developmen
 
 * R: https://www.r-project.org/ v4.0.0+
 * RStudio: https://rstudio.com/products/rstudio/download
-* Shiny Server: https://rstudio.com/products/shiny/download-server(only required for deploying BnaSNPDB on web linux server)
+* Shiny Server: https://rstudio.com/products/shiny/download-server (only required for deploying BnaSNPDB on web linux server)
 
 ### Initialize app
 
