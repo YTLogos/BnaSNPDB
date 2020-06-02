@@ -4,7 +4,7 @@
 
 ## Overview
 
-The SNP database of Brassica napus L. (BnaSNPDB) is an interactive web portal that provides multiple analysis modules to visualize and explore SNPs across 1007 rapeseed gerplasm accessions based on the data reported by previous research (Wu et al., 2019). The app is deployed at http://rapeseed.zju.edu.cn:3838/bnasnpdb for online use. BnaSNPDB is idle until you activate by accessin the [URL](http://rapeseed.zju.edu.cn:3838/bnasnpdb). So it may take some time to load for the first time. Once it was activated, BnaSNPDB could be used smoothly and easily.
+The SNP database of *Brassica napus* L. (**BnaSNPDB**) is an interactive web portal that provides multiple analysis modules to visualize and explore SNPs across 1007 rapeseed gerplasm accessions based on the data reported by previous research (Wu et al., 2019). The app is deployed at http://rapeseed.zju.edu.cn:3838/bnasnpdb for online use. **BnaSNPDB** is idle until you activate by accessin the [URL](http://rapeseed.zju.edu.cn:3838/bnasnpdb). So it may take some time to load for the first time. Once it was activated, **BnaSNPDB** could be used smoothly and easily.
 
 The portal is built entirely in **R** and **Shiny** using the Rstudio development environment.
 
@@ -14,7 +14,7 @@ The portal is built entirely in **R** and **Shiny** using the Rstudio developmen
 
 * R: https://www.r-project.org/ v4.0.0+
 * RStudio: https://rstudio.com/products/rstudio/download
-* Shiny Server: https://rstudio.com/products/shiny/download-server (only required for deploying BnaSNPDB on web linux server)
+* Shiny Server: https://rstudio.com/products/shiny/download-server (only required for deploying **BnaSNPDB** on web linux server)
 
 ### Initialize app
 
@@ -116,7 +116,7 @@ server {
 }
 ```
 
-3. Change the owner of the BnaSNPDB directory
+3. Change the owner of the **BnaSNPDB** directory
 
 ```
 $ chown -R shiny /srv/shiny-server/BnaSNPDB  
@@ -128,5 +128,5 @@ $ chown -R shiny /srv/shiny-server/BnaSNPDB
 $ start shiny-server
 ```
 
-Now you can access the BnaSNPDB app at http://IPAddressOfYourServer:3838/BnaSNPDB.
+Now you can access the **BnaSNPDB** app at http://IPAddressOfYourServer:3838/BnaSNPDB.
 
