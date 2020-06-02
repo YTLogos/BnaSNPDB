@@ -9,7 +9,7 @@ The SNP database of *Brassica napus* L. (**BnaSNPDB**) is an interactive web por
 
 **BnaSNPDB** is idle until you activate it by accessing the [URL](http://rapeseed.zju.edu.cn:3838/bnasnpdb). So it may take some time to load for the first time. Once it was activated, **BnaSNPDB** could be used smoothly and easily.
 
-The portal is built entirely in **R** and **Shiny** using the Rstudio development environment.
+The portal is built entirely in **R** and **Shiny** using the **RStudio** development environment.
 
 ## Install
 
