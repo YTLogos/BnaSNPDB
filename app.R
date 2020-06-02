@@ -1,9 +1,9 @@
 source("global.R")
 
 ui <- fluidPage(
-  div(img(src = "database_logo.png")),
-  includeCSS("www/custom.css"),
-  includeCSS("www/footer.css"),
+  div(img(src = "img/database_logo.png")),
+  includeCSS("www/css/custom.css"),
+  includeCSS("www/css/footer.css"),
   navbarPage(
     title = "",
     windowTitle = "SNP database of 1007 rapeseed germplasm accessions",

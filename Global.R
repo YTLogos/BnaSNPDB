@@ -45,7 +45,7 @@ source("script/homepage.R")
 
 footerTagList <- list(
   tags$footer(id = "myFooter",
-              shiny::includeHTML("www/footer.html")
+              shiny::includeHTML("www/md/footer.html")
   )
 )
 

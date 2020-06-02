@@ -25,7 +25,7 @@ chooserInput <- function(inputId, leftLabel, rightLabel, leftChoices, rightChoic
 
   tagList(
     singleton(tags$head(
-      tags$script(src = "chooser-binding.js"),
+      tags$script(src = "css/chooser-binding.js"),
       tags$style(
         type = "text/css",
         HTML(".chooser-container { display: inline-block; }")

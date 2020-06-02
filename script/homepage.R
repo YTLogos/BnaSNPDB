@@ -92,7 +92,7 @@ homepage <- dashboardPage(
           solidHeader = TRUE,
           collapsible = TRUE,
           status = "warning",
-          includeMarkdown("www/home.md")
+          includeMarkdown("www/md/home.md")
         )
       )
     )
