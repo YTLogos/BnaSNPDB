@@ -72,7 +72,7 @@ devtools::install_github("AnalytixWare/ShinySky")
 
 > This may take some time to complete - walk away from your computer, rest your eyes, and catch up on those stretching exercises you are meant to be doing :)
 
-4. Start tha spp by running
+4. Start tha app by running
 
 ```
 shiny::runApp(launch.browser = TRUE)
@@ -128,5 +128,5 @@ $ chown -R shiny /srv/shiny-server/BnaSNPDB
 $ start shiny-server
 ```
 
-Now you can access the BnaSNPDB app at http://IPAddressOfYourServer:3838/MaizeSNPDB/.
+Now you can access the BnaSNPDB app at http://IPAddressOfYourServer:3838/BnaSNPDB.
 
