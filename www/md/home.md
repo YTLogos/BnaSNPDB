@@ -5,7 +5,7 @@
 
 <p>&nbsp;</p>
 <p align="center">
-<img src="/img/accession_distribution.png" width="800" hegiht="1000">
+<img src="img/accession_distribution.png" width="800" hegiht="1000">
 </p>
 <p style="text-align:center">Fig. 1 The geographic distribution of rapeseed accessions </p>
 
@@ -14,7 +14,7 @@
 <p>&nbsp;</p>
 
 <p align="center">
-<img src="/img/pipeline.png" width="300" hegiht="400">
+<img src="img/pipeline.png" width="300" hegiht="400">
 </p>
 <p style="text-align:center">Fig. 2 The pipeline for data processing procedures </p>
 
@@ -31,7 +31,7 @@
 
 <p>&nbsp;</p>
 <p align="center">
-<img src="/img/variations_distribution.png" width="500" hegiht="500">
+<img src="img/variations_distribution.png" width="500" hegiht="500">
 </p>
 <p style="text-align:center">Fig. 3 The distribution of polymorphisms in <em>B. napus</em> genomic regions </p>
 
