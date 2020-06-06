@@ -370,7 +370,7 @@ mod_extraction_server <- function(input, output, session) {
     print(geographic_plot())
   })
   output$aceession_info <- renderDT({
-    DT::datatable(sample_info()[, -c(5, 6)],
+    DT::datatable(sample_info()[, -c(5, 6, 15, 16)],
       rownames = FALSE,
       filter = "bottom",
       options = list(
@@ -411,13 +411,13 @@ mod_extraction_server <- function(input, output, session) {
     },
     content = function(file) {
       if (input$sample_format == "txt") {
-        write.table(sample_info(), file, row.names = F, col.names = T, quote = F)
+        write.table(sample_info()[, -c(5, 6, 17, 18)], file, row.names = F, col.names = T, quote = F)
       } else if (input$sample_format == "csv") {
-        readr::write_csv(sample_info(), file, col_names = T)
+        readr::write_csv(sample_info()[, -c(5, 6, 17, 18)], file, col_names = T)
       } else if (input$sample_format == "tsv") {
-        readr::write_tsv(sample_info(), file, col_names = T)
+        readr::write_tsv(sample_info()[, -c(5, 6, 17, 18)], file, col_names = T)
       } else {
-        writexl::write_xlsx(sample_info(), file, col_names = T)
+        writexl::write_xlsx(sample_info()[, -c(5, 6, 17, 18)], file, col_names = T)
       }
     }
   )

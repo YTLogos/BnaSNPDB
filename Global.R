@@ -73,6 +73,5 @@ database_type <- c("NR", "Swiss-prot", "KEGG", "eggNOG", "GO")
 available_data_formats <- c("txt", "xlsx", "csv", "tsv")
 available_fig_formats <- c("png", "pdf", "jpeg", "tiff", "bmp", "svg")
 all.tree.info <- read.table("./data/Other_data/all.var.tree.info.txt", head = T, as.is = T, sep = "\t", row.names = 1)
-sample_geographic_info <- read.csv("./data/Other_data/sample_map_info.csv", header = T)
-sample_geographic_info$Type <- factor(sample_geographic_info$Type, levels = c("Winter","Semi-winter","Spring"))
+sample_geographic_info <- readRDS("./data/Other_data/sample_map_info.rds")
 
