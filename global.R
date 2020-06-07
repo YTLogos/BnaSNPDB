@@ -1,0 +1,78 @@
+options(warn = -1)
+library(shiny)
+library(ggplot2)
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(forcats)
+library(patchwork)
+library(glue)
+library(ggpubr)
+library(writexl)
+library(snpStats)
+library(IRanges)
+library(LDheatmap)
+library(ape)
+library(pegas)
+library(gridExtra)
+library(grid)
+library(ggtree)
+library(shinycssloaders)
+library(shinysky)
+library(shinydashboard)
+library(shinyWidgets)
+library(gggenes)
+library(DT)
+library(shinythemes)
+library(NAM)
+library(adegenet)
+
+source("script/mod_ldheatmap.R")
+source("script/mod_snpdistribution.R")
+source("script/mod_phylogenetics.R")
+source("script/mod_diversity.R")
+source("script/mod_extraction.R")
+source("script/mod_about.R")
+source("script/extractsnp.R")
+source("script/extractallele.R")
+source("script/ldheatmap.R")
+source("script/genestru.viz.R")
+source("script/chooser.R")
+source("script/readNewData.R")
+source("script/snp_distribution.R")
+source("script/diversity.R")
+source("script/box_format.R")
+source("script/homepage.R")
+
+footerTagList <- list(
+  tags$footer(id = "myFooter",
+              shiny::includeHTML("www/md/footer.html")
+  )
+)
+
+gffinfo <- readRDS("./data/Other_data/gffinfo.rds")
+load("./data/Other_data/geneinfo.RData")
+load("./data/Other_data/Ref.gene.anno.RData")
+load("./data/Other_data/accession_map.RData")
+
+chromosome <- c(
+  "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10",
+  "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "Ann", "Cnn"
+)
+chrinfo <- read.table("./data/Other_data/chrInfo.txt", header = T, as.is = T)
+snp.list <- read.table("./data/Other_data/snp.RData.lst", header = T, as.is = T)
+allele.list <- read.table("./data/Other_data/allele.RData.lst", header = T, as.is = T)
+all.var <- read.table("data/Other_data/all.var.txt", header = F, as.is = T)
+all.var.info <- as.character(all.var$V1)
+all.var.info <- c("Winter", "Semi-winter", "Spring", "Core", all.var.info)
+eff_type <- c(
+  "Downstream", "Intergenic", "Non_synonymous_coding", "Synonymous_coding",
+  "Intragenic", "Upstream", "Intron", "Splice_site_region", "Stop_lost",
+  "Stop_gained", "Synonymous_stop", "Start_lost"
+)
+database_type <- c("NR", "Swiss-prot", "KEGG", "eggNOG", "GO")
+available_data_formats <- c("txt", "xlsx", "csv", "tsv")
+available_fig_formats <- c("png", "pdf", "jpeg", "tiff", "bmp", "svg")
+all.tree.info <- read.table("./data/Other_data/all.var.tree.info.txt", head = T, as.is = T, sep = "\t", row.names = 1)
+sample_geographic_info <- readRDS("./data/Other_data/sample_map_info.rds")
+
