@@ -15,7 +15,7 @@ ui <- fluidPage(
     tabPanel("Diversity", mod_diversity_ui("diversity")),
     tabPanel("Extraction", mod_extraction_ui("extract"), icon = icon("search")),
     tabPanel("Documentation", icon = icon("file-text")),
-    tabPanel("About", icon = icon("info-circle")),
+    tabPanel("About", mod_about_ui("about"), icon = icon("info-circle")),
     footer = footerTagList
   )
 )
