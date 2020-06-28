@@ -128,6 +128,15 @@ mod_diversity_server <- function(input, output, session) {
       glue::glue("{par_list()[[1]]}_{par_list()[[2]]}_{par_list()[[3]]}.diversity.{input$div_fig_format}")
     },
     content = function(file) {
+      withProgress(
+        message = "Download in progress",
+        detail = "Please wait a while ...",
+        value = 0,
+        {
+          for (i in 1:10) {
+            incProgress(1 / 10)
+            Sys.sleep(0.01)
+          }
       if (input$div_fig_format == "png") {
         png(file, width = 10 * 300, height = 8 * 300, res = 300)
       } else if (input$div_fig_format == "pdf") {
@@ -143,6 +152,8 @@ mod_diversity_server <- function(input, output, session) {
       }
       print(diversity_plot())
       dev.off()
+        }
+      )
     }
   )
 

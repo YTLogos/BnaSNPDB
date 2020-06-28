@@ -387,21 +387,32 @@ mod_extraction_server <- function(input, output, session) {
       glue::glue("The geographic distribution of rapeseed accessions.{input$sample_fig_format}")
     },
     content = function(file) {
-      if (input$sample_fig_format == "png") {
-        png(file, width = 12 * 300, height = 6 * 300, res = 300)
-      } else if (input$sample_fig_format == "pdf") {
-        pdf(file, width = 12, height = 6, onefile = F)
-      } else if (input$sample_fig_format == "jpeg") {
-        jpeg(file, width = 12 * 300, height = 6 * 300, res = 300)
-      } else if (input$sample_fig_format == "tiff") {
-        tiff(file, width = 12 * 300, height = 6 * 300, res = 300)
-      } else if (input$sample_fig_format == "bmp") {
-        bmp(file, width = 12 * 300, height = 6 * 300, res = 300)
-      } else {
-        svg(file)
-      }
-      print(geographic_plot())
-      dev.off()
+      withProgress(
+        message = "Download in progress",
+        detail = "Please wait a while ...",
+        value = 0,
+        {
+          for (i in 1:10) {
+            incProgress(1 / 10)
+            Sys.sleep(0.01)
+          }
+          if (input$sample_fig_format == "png") {
+            png(file, width = 12 * 300, height = 6 * 300, res = 300)
+          } else if (input$sample_fig_format == "pdf") {
+            pdf(file, width = 12, height = 6, onefile = F)
+          } else if (input$sample_fig_format == "jpeg") {
+            jpeg(file, width = 12 * 300, height = 6 * 300, res = 300)
+          } else if (input$sample_fig_format == "tiff") {
+            tiff(file, width = 12 * 300, height = 6 * 300, res = 300)
+          } else if (input$sample_fig_format == "bmp") {
+            bmp(file, width = 12 * 300, height = 6 * 300, res = 300)
+          } else {
+            svg(file)
+          }
+          print(geographic_plot())
+          dev.off()
+        }
+      )
     }
   )
 
