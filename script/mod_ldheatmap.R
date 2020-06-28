@@ -162,37 +162,48 @@ mod_ldheatmap_server <- function(input, output, session) {
       glue::glue("{par_list()[[1]]}_{par_list()[[2]]}_{par_list()[[3]]}.LDheatmap.{input$ld_fig_format}")
     },
     content = function(file) {
-      if (input$ld_fig_format == "png") {
-        png(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else if (input$ld_fig_format == "pdf") {
-        pdf(file, width = 12, height = 8, onefile = F)
-      } else if (input$ld_fig_format == "jpeg") {
-        jpeg(file, width = 8 * 300, height = 8 * 300, res = 300)
-      } else if (input$ld_fig_format == "tiff") {
-        tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else if (input$ld_fig_format == "bmp") {
-        bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else {
-        svg(file)
-      }
-      snp.pos <- snp_data()[[2]]
-      snp.mat <- t(as.matrix(snp_data()[[1]]))
-      snp.mat <- as(snp.mat, "SnpMatrix")
-      if (input$flip == 0) {
-        LDheatmap(snp.mat, snp.pos, flip = F, title = NULL, color = heat.colors(20))
-      } else {
-        if (input$ldshowgene) {
-          ld <- LDheatmap(snp.mat, snp.pos, flip = T, title = NULL, color = heat.colors(20))
-          p1 <- genestru.viz(chr = par_list()[[1]], start = par_list()[[2]], end = par_list()[[3]])
-          plot.new()
-          ld2 <- LDheatmap.addGrob(ld, rectGrob(gp = gpar(col = "white")), height = .3)
-          pushViewport(viewport(x = 0.483, y = 0.85, width = 0.85, height = .3))
-          grid.draw(ggplotGrob(p1))
-        } else {
-          LDheatmap(snp.mat, snp.pos, flip = T, title = NULL, color = heat.colors(20))
+      withProgress(
+        message = "Download in progress",
+        detail = "Please wait a while ...",
+        value = 0,
+        {
+          for (i in 1:10) {
+            incProgress(1 / 10)
+            Sys.sleep(0.01)
+          }
+          if (input$ld_fig_format == "png") {
+            png(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else if (input$ld_fig_format == "pdf") {
+            pdf(file, width = 12, height = 8, onefile = F)
+          } else if (input$ld_fig_format == "jpeg") {
+            jpeg(file, width = 8 * 300, height = 8 * 300, res = 300)
+          } else if (input$ld_fig_format == "tiff") {
+            tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else if (input$ld_fig_format == "bmp") {
+            bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else {
+            svg(file)
+          }
+          snp.pos <- snp_data()[[2]]
+          snp.mat <- t(as.matrix(snp_data()[[1]]))
+          snp.mat <- as(snp.mat, "SnpMatrix")
+          if (input$flip == 0) {
+            LDheatmap(snp.mat, snp.pos, flip = F, title = NULL, color = heat.colors(20))
+          } else {
+            if (input$ldshowgene) {
+              ld <- LDheatmap(snp.mat, snp.pos, flip = T, title = NULL, color = heat.colors(20))
+              p1 <- genestru.viz(chr = par_list()[[1]], start = par_list()[[2]], end = par_list()[[3]])
+              plot.new()
+              ld2 <- LDheatmap.addGrob(ld, rectGrob(gp = gpar(col = "white")), height = .3)
+              pushViewport(viewport(x = 0.483, y = 0.85, width = 0.85, height = .3))
+              grid.draw(ggplotGrob(p1))
+            } else {
+              LDheatmap(snp.mat, snp.pos, flip = T, title = NULL, color = heat.colors(20))
+            }
+          }
+          dev.off()
         }
-      }
-      dev.off()
+      )
     }
   )
   #
