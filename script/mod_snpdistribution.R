@@ -131,21 +131,32 @@ mod_snpdistribution_server <- function(input, output, session) {
       glue::glue("{par_list()[[1]]}_{par_list()[[2]]}_{par_list()[[3]]}.SNPdistribution.{input$snp_fig_format}")
     },
     content = function(file) {
-      if (input$snp_fig_format == "png") {
-        png(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else if (input$snp_fig_format == "pdf") {
-        pdf(file, width = 12, height = 8, onefile = F)
-      } else if (input$snp_fig_format == "jpeg") {
-        jpeg(file, width = 8 * 300, height = 8 * 300, res = 300)
-      } else if (input$snp_fig_format == "tiff") {
-        tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else if (input$snp_fig_format == "bmp") {
-        bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else {
-        svg(file)
-      }
-      print(snp_distribution_plot())
-      dev.off()
+      withProgress(
+        message = "Download in progress",
+        detail = "Please wait a while ...",
+        value = 0,
+        {
+          for (i in 1:10) {
+            incProgress(1 / 10)
+            Sys.sleep(0.01)
+          }
+          if (input$snp_fig_format == "png") {
+            png(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else if (input$snp_fig_format == "pdf") {
+            pdf(file, width = 12, height = 8, onefile = F)
+          } else if (input$snp_fig_format == "jpeg") {
+            jpeg(file, width = 8 * 300, height = 8 * 300, res = 300)
+          } else if (input$snp_fig_format == "tiff") {
+            tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else if (input$snp_fig_format == "bmp") {
+            bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else {
+            svg(file)
+          }
+          print(snp_distribution_plot())
+          dev.off()
+        }
+      )
     }
   )
 
