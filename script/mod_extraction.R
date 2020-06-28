@@ -157,7 +157,7 @@ mod_extraction_ui <- function(id) {
         downloadButton(ns("sample_fig_download"), "Download Geographic distribution"),
         br(),
         br(),
-        h2("SNP data:"),
+        h2("Accession Info:"),
         withSpinner(DT::dataTableOutput(ns("aceession_info")), type = 7),
         br(),
         selectInput(ns("sample_format"),
