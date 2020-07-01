@@ -45,7 +45,6 @@ mod_phylogenetics_ui <- function(id) {
         selected = NULL,
         selectize = TRUE
       ),
-      br(),
       downloadButton(ns("tree_fig_download"), "Download Phylogenetics tree"),
       br(),
       br(),
