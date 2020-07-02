@@ -214,11 +214,13 @@ mod_extraction_server <- function(input, output, session) {
   })
 
   output$snp_info <- renderDT({
-    DT::datatable(snp_data()[[3]][, c(1:10)],
+    DT::datatable(snp_data()[[3]][, c(1:25)],
       rownames = FALSE,
+      extensions = "FixedColumns",
       filter = "bottom",
       options = list(
         scrollX = TRUE,
+        fixedColumns = list(leftColumns = 6),
         autoWidth = FALSE,
         columnDefs = list(list(className = "dt-right", target = "_all"))
       ), escape = FALSE
@@ -372,11 +374,13 @@ mod_extraction_server <- function(input, output, session) {
   output$aceession_info <- renderDT({
     DT::datatable(sample_info()[, -c(5, 6, 15, 16)],
       rownames = FALSE,
+      extensions = "FixedColumns",
       filter = "bottom",
       options = list(
         pageLength = 10,
         scrollX = TRUE,
         autoWidth = TRUE,
+        fixedColumns = list(leftColumns = 1, rightColumns = 2),
         columnDefs = list(list(className = "dt-center", target = "_all"))
       ), escape = FALSE
     )

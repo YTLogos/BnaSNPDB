@@ -45,6 +45,7 @@ mod_phylogenetics_ui <- function(id) {
         selected = NULL,
         selectize = TRUE
       ),
+      br(),
       downloadButton(ns("tree_fig_download"), "Download Phylogenetics tree"),
       br(),
       br(),
@@ -114,12 +115,14 @@ mod_phylogenetics_server <- function(input, output, session) {
     print(phylo_tree())
   })
   output$tree_snp_info <- renderDT({
-    DT::datatable(snp_data()[[3]][, c(1:10)],
+    DT::datatable(snp_data()[[3]][, c(1:25)],
       rownames = FALSE,
+      extensions = "FixedColumns",
       filter = "bottom",
       options = list(
         pageLength = 10,
         scrollX = TRUE,
+        fixedColumns = list(leftColumns = 6),
         autoWidth = FALSE,
         lengthMenu = c(5, 8, 10),
         columnDefs = list(list(className = "dt-right", target = "_all"))

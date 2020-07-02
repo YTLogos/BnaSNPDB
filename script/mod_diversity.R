@@ -96,12 +96,14 @@ mod_diversity_server <- function(input, output, session) {
   })
 
   output$div_allele_info <- renderDT({
-    DT::datatable(allele.info()[, c(1:10)],
+    DT::datatable(allele.info()[, c(1:25)],
       rownames = FALSE,
       filter = "bottom",
+      extensions = "FixedColumns",
       options = list(
         pageLength = 10,
         scrollX = TRUE,
+        fixedColumns = list(leftColumns = 6),
         columnDefs = list(list(className = "dt-right", target = "_all"))
       )
     )
@@ -137,21 +139,21 @@ mod_diversity_server <- function(input, output, session) {
             incProgress(1 / 10)
             Sys.sleep(0.01)
           }
-      if (input$div_fig_format == "png") {
-        png(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else if (input$div_fig_format == "pdf") {
-        pdf(file, width = 12, height = 8, onefile = F)
-      } else if (input$div_fig_format == "jpeg") {
-        jpeg(file, width = 8 * 300, height = 8 * 300, res = 300)
-      } else if (input$div_fig_format == "tiff") {
-        tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else if (input$div_fig_format == "bmp") {
-        bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
-      } else {
-        svg(file)
-      }
-      print(diversity_plot())
-      dev.off()
+          if (input$div_fig_format == "png") {
+            png(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else if (input$div_fig_format == "pdf") {
+            pdf(file, width = 12, height = 8, onefile = F)
+          } else if (input$div_fig_format == "jpeg") {
+            jpeg(file, width = 8 * 300, height = 8 * 300, res = 300)
+          } else if (input$div_fig_format == "tiff") {
+            tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else if (input$div_fig_format == "bmp") {
+            bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
+          } else {
+            svg(file)
+          }
+          print(diversity_plot())
+          dev.off()
         }
       )
     }

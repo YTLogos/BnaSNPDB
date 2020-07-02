@@ -114,12 +114,14 @@ mod_snpdistribution_server <- function(input, output, session) {
   })
 
   output$dis_snp_info <- renderDT({
-    DT::datatable(snp_data()[[3]][, c(1:10)],
+    DT::datatable(snp_data()[[3]][, c(1:25)],
       rownames = FALSE,
+      extensions = "FixedColumns",
       filter = "bottom",
       options = list(
         pageLength = 10,
         scrollX = TRUE,
+        fixedColumns = list(leftColumns = 6),
         columnDefs = list(list(className = "dt-right", target = "_all"))
       )
     )
