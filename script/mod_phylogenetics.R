@@ -101,6 +101,7 @@ mod_phylogenetics_server <- function(input, output, session) {
   })
 
   phylo_tree <- reactive({
+    req(snp_data())
     snpmat <- t(as.matrix(snp_data()[[1]]))
     tree <- nj(dist.gene(snpmat))
     p <- ggtree(tree, layout = "circular", branch.length = "none", size = 0.1) + ggtitle("") + theme_void()
@@ -112,6 +113,7 @@ mod_phylogenetics_server <- function(input, output, session) {
     return(p)
   })
   output$tree <- renderPlot({
+    req(phylo_tree())
     print(phylo_tree())
   })
   output$tree_snp_info <- renderDT({
