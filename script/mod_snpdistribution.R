@@ -96,6 +96,7 @@ mod_snpdistribution_server <- function(input, output, session) {
   })
 
   snp_distribution_plot <- reactive({
+    req(snp_data())
     snpmat <- as.data.frame(as.matrix(snp_data()[[1]]))
     snppos <- snp_data()[[2]]
     snpmat <- cbind(snppos, snpmat)
@@ -110,6 +111,7 @@ mod_snpdistribution_server <- function(input, output, session) {
   })
 
   output$snp_dis <- renderPlot({
+    req(snp_distribution_plot())
     print(snp_distribution_plot())
   })
 

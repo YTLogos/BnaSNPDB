@@ -369,6 +369,7 @@ mod_extraction_server <- function(input, output, session) {
 
 
   output$accession_dis <- renderPlot({
+    req(geographic_plot())
     print(geographic_plot())
   })
   output$aceession_info <- renderDT({
