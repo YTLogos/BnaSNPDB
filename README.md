@@ -4,7 +4,7 @@
 
 ## Overview
 
-The SNP database of *Brassica napus* L. (**BnaSNPDB**) is an interactive web portal that provides multiple analysis modules to visualize and explore SNPs among 1007 rapeseed germplasm accessions based on the data reported by previous research ([Wu et al., 2019](http://rapeseed.zju.edu.cn/pdf/mp.pdf)). The app is deployed at http://rapeseed.zju.edu.cn:3838/bnasnpdb for online use. 
+The SNP database of *Brassica napus* L. (**BnaSNPDB**) is an interactive web portal that provides multiple analysis modules to visualize and explore SNPs among 1007 rapeseed germplasm accessions based on the data reported by previous research ([Wu et al., 2019](http://rapeseed.zju.edu.cn/pdf/mp.pdf)). The app is deployed at http://rapeseed.zju.edu.cn:3838/bnasnpdb and http://121.41.229.126:3838/bnasnpdb for online use. 
 
 
 **BnaSNPDB** is idle until you activate it by accessing the [URL](http://rapeseed.zju.edu.cn:3838/bnasnpdb). So it may take some time to load for the first time. Once it was activated, **BnaSNPDB** could be used smoothly and easily.
