@@ -4,7 +4,7 @@
 
 + Data visualisation is mainly done with [`{ggplot2}`](https://github.com/tidyverse/ggplot2), {[`LDheatmap`](https://sfustatgen.github.io/LDheatmap/)} and {[`ggtree`](https://github.com/YuLab-SMU/ggtree)}.
 
-+ The UI was built with [`Boostrap`](https://getbootstrap.com/).
++ The UI was built with [`Bootstrap`](https://getbootstrap.com/).
 
 + The app was deployed at http://121.41.229.126:3838/bnasnpdb and http://rapeseed.zju.edu.cn:3838/bnasnpdb with [`Shiny-server`](https://rstudio.com/products/shiny/shiny-server/) for online use.
 
