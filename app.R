@@ -4,6 +4,16 @@ ui <- fluidPage(
   div(img(src = "img/database_logo.png")),
   includeCSS("www/css/custom.css"),
   includeCSS("www/css/footer.css"),
+  disconnectMessage(
+    text = "Your session timed out, reload the application!",
+    refresh = "Reload now",
+    background = "#f89f43",
+    colour = "white",
+    overlayColour = "grey",
+    overlayOpacity = 0.75,
+    top = 250,
+    refreshColour = "brown"
+  ),
   navbarPage(
     title = "",
     windowTitle = "SNP database of 1007 rapeseed germplasm accessions",
@@ -26,6 +36,9 @@ server <- function(input, output, session) {
   callModule(mod_phylogenetics_server, "tree")
   callModule(mod_diversity_server, "diversity")
   callModule(mod_extraction_server, "extract")
+  observeEvent(input$disconnect, {
+    session$close()
+  })
 }
 
 shinyApp(ui, server)
