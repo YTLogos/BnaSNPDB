@@ -20,7 +20,7 @@ ui <- fluidPage(
     theme = shinytheme("flatly"),
     tabPanel("Home", homepage, icon = icon("home")),
     tabPanel("LDheatmap", mod_ldheatmap_ui("ld")),
-    tabPanel("SNP_distribution", mod_snpdistribution_ui("dis")),
+    tabPanel("SNPdistribution", mod_snpdistribution_ui("dis")),
     tabPanel("Phylogenetics", mod_phylogenetics_ui("tree")),
     tabPanel("Diversity", mod_diversity_ui("diversity")),
     tabPanel("Extraction", mod_extraction_ui("extract"), icon = icon("search")),
