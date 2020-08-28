@@ -90,7 +90,7 @@ snp_distribution <- function(snp_data, ...) {
         ) +
         snp_dis_theme
     }
-    p <- ggpubr::ggarrange(p_list[[1]], p_list[[2]], p_list[[3]],
+    p <- ggpubr::ggarrange(p_list[[1]], p_list[[3]], p_list[[2]],
       ncol = 1, nrow = 3,
       heights = heights, common.legend = TRUE, legend = "right", align = "hv"
     )
