@@ -1,5 +1,4 @@
 source("global.R")
-
 ui <- fluidPage(
   div(img(src = "img/database_logo.png")),
   includeCSS("www/css/custom.css"),
