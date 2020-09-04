@@ -74,7 +74,7 @@ mod_ldheatmap_ui <- function(id) {
       br(),
       h5("ref: reference allele - The reference allele is whatever is found in the reference genome."),
       h5("alt: alternative allele - The alternative allele is the allele found in the sample."),
-      h5("major:  allele, is the common allele with high frequency."),
+      h5("major: major allele, is the common allele with high frequency."),
       h5("minor: monir allele, is the less common allele with lower frequency."),
       selectInput(ns("ld_snp_format"),
         "Download data as:",
