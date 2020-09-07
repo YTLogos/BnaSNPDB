@@ -15,6 +15,20 @@ homepage <- dashboardPage(
         p("The SNP database of", em("Brassica napus"), "L. (BnaSNPDB) is an interactive web-based platform and set of analytic tools for effcient retrieve and analysis of SNPs among 1007 rapeseed germplasm accessions based on the data reported by previous research(", a("Wu et al., 2019", href = "http://rapeseed.zju.edu.cn/pdf/mp.pdf", target = "_blank"), ").")
       )
     ),
+    
+    column(
+      width = 10,
+      offset = 1,
+      titleBox(title = "Tutorial of BnaSNPDB")
+    ),
+    column(
+      width = 10,
+      offset = 1,
+      textBox(
+        width = 12,
+        p("To facilitate user access to BnaSNPDB, we create a short and informative tutorial video for the learning purpose. User can click",a("How to use the BnaSNPDB (video from YouTube)", href = "https://www.youtube.com/watch?v=8mBHzsKVotc", target = "_blank"),"or", a("How to use the BnaSNPDB (video from Bilibili)", href = "https://www.bilibili.com/video/BV1654y1C7hU", target = "_blank"),"to watch the video.")
+      )
+    ),
 
     column(
       width = 10,
