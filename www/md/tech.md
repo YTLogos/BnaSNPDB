@@ -33,6 +33,7 @@ Browse the full source code at https://github.com/YTLogos/BnaSNPDB.
 * [`shinycssloaders`](https://github.com/daattali/shinycssloaders)
 * [`shinydashboard`](https://rstudio.github.io/shinydashboard/)
 * [`shinyWidgets`](https://github.com/dreamRs/shinyWidgets)
+* [`shinydisconnect`](https://github.com/daattali/shinydisconnect)
 * [`gggenes`](https://github.com/wilkox/gggenes)
 * [`DT`](https://github.com/rstudio/DT)
 * [`shinythemes`](https://github.com/rstudio/shinythemes)
