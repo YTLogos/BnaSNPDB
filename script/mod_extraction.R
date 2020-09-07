@@ -116,7 +116,7 @@ mod_extraction_ui <- function(id) {
         h5("ref: reference allele - The reference allele is whatever is found in the reference genome."),
         h5("alt: alternative allele - The alternative allele is the allele found in the sample."),
         h5("major: major allele, is the common allele with high frequency."),
-        h5("minor: monir allele, is the less common allele with lower frequency."),
+        h5("minor: minor allele, is the less common allele with lower frequency."),
         selectInput(ns("snp_format"),
           "Download data as:",
           choices = available_data_formats,
