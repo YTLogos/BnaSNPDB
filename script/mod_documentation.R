@@ -1,3 +1,11 @@
+#' Title
+#'
+#' @param id 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 mod_doc_ui <- function(id){
   ns <- NS(id)
   tagList(
