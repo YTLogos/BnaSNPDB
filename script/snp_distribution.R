@@ -78,7 +78,9 @@ snp_distribution <- function(snp_data, ...) {
         unique() %>%
         nrow()
     }
-    heights <- round(height / 100, 2)
+    
+    h_adjust <- c(height[1],height[3],height[2])
+    heights <- round(h_adjust / 100, 2)
     for (i in 1:length(types)) {
       snp_list[[i]] <- snp_data %>% dplyr::filter(type == types[i])
       p_list[[i]] <- ggplot(snp_list[[i]], aes(x = snppos, y = accession, fill = factor(allele))) +
