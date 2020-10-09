@@ -15,7 +15,7 @@ ui <- fluidPage(
   ),
   navbarPage(
     title = "",
-    windowTitle = "SNP database of 1007 rapeseed germplasm accessions",
+    windowTitle = "BnaSNPDB",
     theme = shinytheme("flatly"),
     tabPanel("Home", homepage, icon = icon("home")),
     tabPanel("LDheatmap", mod_ldheatmap_ui("ld")),
