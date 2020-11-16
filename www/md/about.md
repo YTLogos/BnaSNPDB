@@ -1,8 +1,8 @@
 ## About this app
 
-This app ([BnaSNPDB](http://rapeseed.zju.edu.cn:3838/bnasnpdb)) has been built by [Tao Yan](https://taoyan.netlify.app/). It's based on the genomic dataset reported by previous research ([Wu et al., 2019](http://rapeseed.zju.edu.cn/pdf/mp.pdf)).
+This app ([BnaSNPDB](https://bnapus-zju.com/bnasnpdb)) has been built by [Tao Yan](https://taoyan.netlify.app/). It's based on the genomic dataset reported by previous research ([Wu et al., 2019](https://jianglab.netlify.app/pdf/mp.pdf)).
 
-The current release of [BnaSNPDB](http://rapeseed.zju.edu.cn:3838/bnasnpdb) contains 2,404,340 high-quality SNPs and provides set of analytic tools for efficient retrieve and analysis of SNPs across 1,007 accessions (658 winter ecotypes, 145 semi-winter ecotypes and 188 spring ecotypes) of worldwide rapeseed germplasm.
+The current release of [BnaSNPDB](https://bnapus-zju.com/bnasnpdb) contains 2,404,340 high-quality SNPs and provides set of analytic tools for efficient retrieve and analysis of SNPs across 1,007 accessions (658 winter ecotypes, 145 semi-winter ecotypes and 188 spring ecotypes) of worldwide rapeseed germplasm.
 
 ## Citation
 
@@ -10,7 +10,7 @@ Yan, T., Wang, Q., Maodzeka, A., Wu, D., and Jiang, L. (2020) [BnaSNPDB: An inte
 
 
 ## Analysis Modules
-We here present 5 modules to retrieve and analyze the SNP dataset. Within each module, the user can select different parameters to retrieve and analyze the SNP dataset. You can find some example figures that these modules can generate in the manuscript [Wu et al.](http://rapeseed.zju.edu.cn/pdf/mp.pdf) and [Xuan et al.](http://rapeseed.zju.edu.cn/pdf/pce.13694.pdf)
+We here present 5 modules to retrieve and analyze the SNP dataset. Within each module, the user can select different parameters to retrieve and analyze the SNP dataset. You can find some example figures that these modules can generate in the manuscript [Wu et al.](https://jianglab.netlify.app/pdf/mp.pdf) and [Xuan et al.](https://jianglab.netlify.app/pdf/pce.13694.pdf)
 
 ### LDheatmap
 

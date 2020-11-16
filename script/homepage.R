@@ -12,7 +12,7 @@ homepage <- dashboardPage(
       offset = 1,
       textBox(
         width = 12,
-        p("The SNP database of", em("Brassica napus"), "L. (BnaSNPDB) is an interactive web-based platform and set of analytic tools for effcient retrieve and analysis of SNPs among 1007 rapeseed germplasm accessions based on the data reported by previous research(", a("Wu et al., 2019", href = "http://rapeseed.zju.edu.cn/pdf/mp.pdf", target = "_blank"), ").")
+        p("The SNP database of", em("Brassica napus"), "L. (BnaSNPDB) is an interactive web-based platform and set of analytic tools for effcient retrieve and analysis of SNPs among 1007 rapeseed germplasm accessions based on the data reported by previous research(", a("Wu et al., 2019", href = "https://jianglab.netlify.app/pdf/mp.pdf", target = "_blank"), ").")
       )
     ),
     
@@ -55,7 +55,7 @@ homepage <- dashboardPage(
         title = "Analysis Modules",
         messageBox(
           width = 12,
-          p("We here present 5 modules to retrieve and analyze the SNP dataset. Within each module, the user can select different parameters to retrieve and analyze the SNP dataset. You can find some example figures that these modules can generate in the manuscript ", a(em("Wu et al. Whole-Genome Resequencing of a Worldwide Collection of Rapeseed Accessions Reveals the Genetic Basis of Ecotype Divergence, Molecular Plant (2019)"), href = "http://rapeseed.zju.edu.cn/pdf/mp.pdf", target = "_blank"), "and manuscript", a(em("Xuan et al. Genome-wide association study reveals new genes involved in leaf trichome formation in polyploid oilseed rape (Brassica napus L.), Plant, Cell & Environment (2019)."), href = "http://rapeseed.zju.edu.cn/pdf/pce.13694.pdf", target = "_blank")),
+          p("We here present 5 modules to retrieve and analyze the SNP dataset. Within each module, the user can select different parameters to retrieve and analyze the SNP dataset. You can find some example figures that these modules can generate in the manuscript ", a(em("Wu et al. Whole-Genome Resequencing of a Worldwide Collection of Rapeseed Accessions Reveals the Genetic Basis of Ecotype Divergence, Molecular Plant (2019)"), href = "https://jianglab.netlify.app/pdf/mp.pdf", target = "_blank"), "and manuscript", a(em("Xuan et al. Genome-wide association study reveals new genes involved in leaf trichome formation in polyploid oilseed rape (Brassica napus L.), Plant, Cell & Environment (2019)."), href = "https://jianglab.netlify.app/pdf/pce.13694.pdf", target = "_blank")),
           fluidRow(
             module_Box(
               width = 6,
