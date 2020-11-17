@@ -30,7 +30,7 @@ mod_diversity_ui <- function(id) {
     ),
     mainPanel(
       h2("Diversity Plot:"),
-      withSpinner(plotOutput(ns("div_plot"), height = 700), type = 4),
+      withSpinner(plotOutput(ns("div_plot"), height = 700), image = "/img/custom.gif"),
       br(),
       selectInput(ns("div_fig_format"),
         "Download figure as:",
@@ -43,7 +43,7 @@ mod_diversity_ui <- function(id) {
       br(),
       br(),
       h2("Allele Informations (Major/Minor):"),
-      withSpinner(DT::dataTableOutput(ns("div_allele_info")), type = 4),
+      withSpinner(DT::dataTableOutput(ns("div_allele_info")), image = "/img/custom.gif"),
       h5("ref: reference allele - The reference allele is whatever is found in the reference genome."),
       h5("alt: alternative allele - The alternative allele is the allele found in the sample."),
       h5("major: major allele, is the common allele with high frequency."),

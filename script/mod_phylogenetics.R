@@ -38,7 +38,7 @@ mod_phylogenetics_ui <- function(id) {
 
     mainPanel(
       h2("Phylogenetic Tree:"),
-      withSpinner(plotOutput(ns("tree")), type = 4),
+      withSpinner(plotOutput(ns("tree")), image = "/img/custom.gif"),
       selectInput(ns("tree_fig_format"),
         "Download figure as:",
         choices = available_fig_formats,
@@ -50,7 +50,7 @@ mod_phylogenetics_ui <- function(id) {
       br(),
       br(),
       h2("SNP Informations:"),
-      withSpinner(DT::dataTableOutput(ns("tree_snp_info")), type = 7),
+      withSpinner(DT::dataTableOutput(ns("tree_snp_info")), image = "/img/custom.gif"),
       h5("ref: reference allele - The reference allele is whatever is found in the reference genome."),
       h5("alt: alternative allele - The alternative allele is the allele found in the sample."),
       h5("major: major allele, is the common allele with high frequency."),
