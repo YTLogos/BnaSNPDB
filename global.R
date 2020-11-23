@@ -27,6 +27,7 @@ library(DT)
 library(shinythemes)
 library(NAM)
 library(adegenet)
+library(rmarkdown)
 
 source("script/mod_ldheatmap.R")
 source("script/mod_snpdistribution.R")
