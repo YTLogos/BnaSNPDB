@@ -1,5 +1,6 @@
 source("global.R")
 ui <- fluidPage(
+  tags$script(src="css/addhash.js"),
   div(img(src = "img/bnasnpdb_logo.png")),
   includeCSS("www/css/custom.css"),
   includeCSS("www/css/footer.css"),
