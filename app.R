@@ -16,7 +16,7 @@ ui <- fluidPage(
   ),
   navbarPage(
     title = "",
-    windowTitle = "BnaSNPDB",
+    windowTitle = "Welcome to BnaSNPDB",
     theme = shinytheme("flatly"),
     tabPanel("Home", homepage, icon = icon("home")),
     tabPanel("LDheatmap", mod_ldheatmap_ui("ld")),
