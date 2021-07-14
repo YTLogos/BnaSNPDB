@@ -35,8 +35,7 @@ chooserInput <- function(inputId, leftLabel, rightLabel, leftChoices, rightChoic
       id = inputId, class = "chooser",
       div(
         class = "chooser-container chooser-left-container",
-        tags$select(class = "left", size = size, multiple = multiple, leftChoices, style = "width:100
-px;background:gray50")
+        tags$select(class = "left", size = size, multiple = multiple, leftChoices, style = "width:100px;background:gray50")
       ),
       div(
         class = "chooser-container chooser-center-container",
