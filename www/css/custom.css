@@ -119,3 +119,8 @@ img {
       background-color: rgba(218, 218, 218, 0.5)!important;
       color: #222!important;
   }
+
+  
+element.style {
+  width: 50px;
+}
