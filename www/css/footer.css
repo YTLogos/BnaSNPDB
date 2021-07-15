@@ -59,7 +59,7 @@
 #myFooter a:hover,
 #myFooter a:focus {
     text-decoration: none;
-    color: white;
+    color: blue;
 }
 
 #myFooter .btn {
@@ -72,6 +72,7 @@
     margin: 0 auto;
     margin-top: 10px;
     line-height: 25px;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 767px) {
