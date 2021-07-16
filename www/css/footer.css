@@ -59,7 +59,7 @@
 #myFooter a:hover,
 #myFooter a:focus {
     text-decoration: none;
-    color: blue;
+    color: #4dff06;
 }
 
 #myFooter .btn {
