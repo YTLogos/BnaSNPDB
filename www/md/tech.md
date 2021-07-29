@@ -6,7 +6,7 @@
 
 + The UI was built with [`Bootstrap`](https://getbootstrap.com/).
 
-+ The app was deployed at https://bnapus-zju.com/bnasnpdb and http://rapeseed.zju.edu.cn:3838/bnasnpdb with [`Shiny-server`](https://rstudio.com/products/shiny/shiny-server/) for online use.
++ The app was deployed at https://bnapus-zju.com/bnasnpdb with [`Shiny-server`](https://rstudio.com/products/shiny/shiny-server/) for online use.
 
 Browse the full source code at https://github.com/YTLogos/BnaSNPDB.
 
