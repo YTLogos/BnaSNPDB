@@ -30,7 +30,7 @@ This module provides the functionality to calculate nucleotide diversity among g
 
 ### Extraction
 
-This module allows user to extract the detail informations of SNPs, annotation of genes and essential information on the 1007 rapeseed germplasm accessions used in the BnaSNPDB.
+This module allows user to extract the detail informations of SNPs, annotation of genes and essential information on the 1，007 rapeseed germplasm accessions used in the BnaSNPDB.
 
 &nbsp;
 &nbsp;

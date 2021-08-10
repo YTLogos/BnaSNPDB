@@ -1,7 +1,7 @@
 
 ## Exploring the rapeseed (*Brassica napus* L.) genomic variation dataset
 <p>&nbsp;</p>
-<p>Rapeseed (<em>Brassica napus</em> L.), an important oilseed crop, has adapted to diverse climate zones and latitudes by forming three main ecotype groups, namely winyer, semi-winter, and spring types. In this database, We collected a worldwide collection of 1007 <em>B .napus</em> germplasms accessions, including 658 winetr types, 145 semi-winter types, and 188 spring types, from 39 countries (Fig. 1).</p>
+<p>Rapeseed (<em>Brassica napus</em> L.), an important oilseed crop, has adapted to diverse climate zones and latitudes by forming three main ecotype groups, namely winyer, semi-winter, and spring types. In this database, We collected a worldwide collection of 1,007 <em>B .napus</em> germplasms accessions, including 658 winetr types, 145 semi-winter types, and 188 spring types, from 39 countries (Fig. 1).</p>
 
 <p>&nbsp;</p>
 <p align="center">
@@ -26,7 +26,7 @@
 <p>&nbsp;</p>
 
 
-<p>Finally, 5.56 million SNPs were detected. The distribution of polymorphisms in <em>B. napus</em> genomic regions showed that 202 323, 62 834, 939 553, 899 982, and 2 778 189 SNPs were located within exons, introns, and upstream regions (within 5 kb upstream of transcription start sites), downstream regions (within 5 kb downstream of transcription stop sites), and intergenic regions, respectively (Fig. 3).
+<p>Finally, 5.56 million SNPs were detected. The distribution of polymorphisms in <em>B. napus</em> genomic regions showed that 202,323, 62,834, 939,553, 899,982, and 2,778,189 SNPs were located within exons, introns, and upstream regions (within 5 kb upstream of transcription start sites), downstream regions (within 5 kb downstream of transcription stop sites), and intergenic regions, respectively (Fig. 3).
 
 
 <p>&nbsp;</p>
