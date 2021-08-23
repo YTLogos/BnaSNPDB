@@ -207,6 +207,32 @@ mod_ldheatmap_server <- function(input, output, session) {
             }
           }
           dev.off()
+          ###  This part has some bug (plot.new: pptx device only supports one page), need be improved ########
+          if (input$ld_fig_format == "pptx") { 
+            doc <- read_pptx()
+            doc <- add_slide(doc)
+            anyplot <- rvg::dml(code = {
+              snp.pos <- snp_data()[[2]]
+              snp.mat <- t(as.matrix(snp_data()[[1]]))
+              snp.mat <- as(snp.mat, "SnpMatrix")
+              if (input$flip == 0) {
+                LDheatmap(snp.mat, snp.pos, flip = F, title = NULL, color = heat.colors(20))
+              } else {
+                if (input$ldshowgene) {
+                  ld <- LDheatmap(snp.mat, snp.pos, flip = T, title = NULL, color = heat.colors(20))
+                  p1 <- genestru.viz(chr = par_list()[[1]], start = par_list()[[2]], end = par_list()[[3]])
+                  plot.new()
+                  ld2 <- LDheatmap.addGrob(ld, rectGrob(gp = gpar(col = "white")), height = .3)
+                  pushViewport(viewport(x = 0.483, y = 0.85, width = 0.85, height = .3))
+                  grid.draw(ggplotGrob(p1))
+                } else {
+                  LDheatmap(snp.mat, snp.pos, flip = T, title = NULL, color = heat.colors(20))
+                }
+              }
+            })
+            doc <- ph_with(doc,anyplot,location = ph_location_fullsize())
+            print(doc, target = file)
+          }
         }
       )
     }

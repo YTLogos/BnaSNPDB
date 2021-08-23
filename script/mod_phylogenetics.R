@@ -163,6 +163,12 @@ mod_phylogenetics_server <- function(input, output, session) {
           }
           print(tree_download)
           dev.off()
+          if (input$tree_fig_format == "pptx") { 
+            doc <- read_pptx()
+            doc <- add_slide(doc)
+            doc <- ph_with(doc,tree_download,location = ph_location_fullsize())
+            print(doc, target = file)
+          }
         }
       )
     }

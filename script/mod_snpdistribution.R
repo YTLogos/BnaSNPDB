@@ -156,12 +156,19 @@ mod_snpdistribution_server <- function(input, output, session) {
             tiff(file, width = 10 * 300, height = 8 * 300, res = 300)
           } else if (input$snp_fig_format == "bmp") {
             bmp(file, width = 10 * 300, height = 8 * 300, res = 300)
-          } else {
+          } else if (input$snp_fig_format == "svg") {
             svg(file)
           }
           print(snp_distribution_plot())
           dev.off()
+          if (input$snp_fig_format == "pptx") { 
+            doc <- read_pptx()
+            doc <- add_slide(doc)
+            doc <- ph_with(doc,snp_distribution_plot(),location = ph_location_fullsize())
+            print(doc, target = file)
+          }
         }
+          
       )
     }
   )

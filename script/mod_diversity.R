@@ -157,6 +157,12 @@ mod_diversity_server <- function(input, output, session) {
           }
           print(diversity_plot())
           dev.off()
+          if (input$div_fig_format == "pptx") { 
+            doc <- read_pptx()
+            doc <- add_slide(doc)
+            doc <- ph_with(doc,diversity_plot(),location = ph_location_fullsize())
+            print(doc, target = file)
+          }
         }
       )
     }

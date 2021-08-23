@@ -28,6 +28,8 @@ library(shinythemes)
 library(NAM)
 library(adegenet)
 library(rmarkdown)
+library(rvg)
+library(officer)
 
 source("script/mod_ldheatmap.R")
 source("script/mod_snpdistribution.R")
@@ -75,7 +77,7 @@ eff_type <- c(
 )
 database_type <- c("NR", "Swiss-prot", "KEGG", "eggNOG", "GO")
 available_data_formats <- c("txt", "xlsx", "csv", "tsv")
-available_fig_formats <- c("png", "pdf", "jpeg", "tiff", "bmp", "svg")
+available_fig_formats <- c("png", "pptx","pdf", "jpeg", "tiff", "bmp", "svg")
 all.tree.info <- read.table("./data/Other_data/all.var.tree.info.txt", head = T, as.is = T, sep = "\t", row.names = 1)
 sample_geographic_info <- readRDS("./data/Other_data/sample_map_info.rds")
 
