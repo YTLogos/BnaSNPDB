@@ -42,7 +42,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 BiocManager::install(version = "3.13")
 
-BiocManager::install("shiny",update = F)
+## Shiny比较特殊，经测试发现1.6和1.7版本的shiny的SliderInput在Ubuntu下会出现乱码，所以指定安装1.5版本的shiny
+install.packages("https://cran.r-project.org/src/contrib/Archive/shiny/shiny_1.5.0.tar.gz", repos = NULL, type = 'source')
 BiocManager::install("ggplot2",update = F)
 BiocManager::install("stringr",update = F)
 BiocManager::install("dplyr",update = F)
@@ -70,7 +71,7 @@ BiocManager::install("shinythemes",update = F)
 BiocManager::install("NAM",update = F)
 BiocManager::install("adegenet",update = F)
 
-if (require(devtools)) install.packages("devtools")#if not already installed
+if (!require(devtools)) install.packages("devtools")#if not already installed
 devtools::install_github("AnalytixWare/ShinySky")
 ```
 
