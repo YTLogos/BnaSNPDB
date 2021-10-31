@@ -24,7 +24,7 @@ ui <- fluidPage(
     tabPanel("Phylogenetics", mod_phylogenetics_ui("tree")),
     tabPanel("Diversity", mod_diversity_ui("diversity")),
     tabPanel("Extraction", mod_extraction_ui("extract"), icon = icon("search")),
-    tabPanel("Documentation", mod_doc_ui("doc"), icon = icon("file-text")),
+    tabPanel("Documentation", mod_doc_ui("doc"), icon = icon("file-alt")),
     tabPanel("About", mod_about_ui("about"), icon = icon("info-circle")),
     footer = footerTagList
   )
