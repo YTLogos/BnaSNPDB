@@ -48,7 +48,7 @@ source("script/snp_distribution.R")
 source("script/diversity.R")
 source("script/box_format.R")
 source("script/homepage.R")
-
+source("script/geographic_map.R")
 footerTagList <- list(
   tags$footer(id = "myFooter",
               shiny::includeHTML("www/md/footer.html")
@@ -58,7 +58,6 @@ footerTagList <- list(
 gffinfo <- readRDS("./data/Other_data/gffinfo.rds")
 load("./data/Other_data/geneinfo.RData")
 load("./data/Other_data/Ref.gene.anno.RData")
-load("./data/Other_data/accession_map.RData")
 
 chromosome <- c(
   "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10",
