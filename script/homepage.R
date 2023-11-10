@@ -36,14 +36,14 @@ homepage <- dashboardPage(
       sectionBox(
         title = "What's Inside",
         fluidRow(
-          valueBox("2,404,340", "High Quality SNPs", width = 4),
-          valueBox("1,007", "Germplasm Collections", color = "purple", width = 4),
-          valueBox(39, "Countries", color = "yellow", width = 4)
+          valueBox(countup(2404340), "High Quality SNPs", width = 4,color = "fuchsia"),
+          valueBox(countup(1007), "Germplasm Collections", color = "maroon", width = 4),
+          valueBox(countup(39), "Countries", color = "yellow", width = 4)
         ),
         fluidRow(
-          valueBox(658, "Winter Ecotypes", color = "fuchsia", width = 4),
-          valueBox(145, "Semi-winter Ecotypes", color = "navy", width = 4),
-          valueBox(188, "Spring Ecotypes", color = "olive", width = 4),
+          valueBox(countup(658), "Winter Ecotypes", color = "aqua", width = 4),
+          valueBox(countup(145), "Semi-winter Ecotypes", color = "navy", width = 4),
+          valueBox(countup(188), "Spring Ecotypes", color = "olive", width = 4)
         )
       )
     ),
