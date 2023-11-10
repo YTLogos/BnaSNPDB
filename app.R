@@ -1,5 +1,16 @@
 source("global.R")
 ui <- fluidPage(
+  
+  useShinyjs(),
+  
+  # Add the loading message
+  div(
+    id = "loading_msg",
+    style = "text-align: center; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);",
+    h2("Please wait, loading...")
+  ),
+  
+  
   tags$script(src="css/addhash.js"),
   div(img(src = "img/bnasnpdb_logo.png")),
   includeCSS("www/css/custom.css"),
@@ -31,6 +42,17 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
+  
+  # Show loading message as a modal dialog
+  shinyjs::show("loading_msg")
+  
+  # Hide loading message once the Shiny application has finished loading
+  session$onFlushed(function() {
+    shinyjs::hide("loading_msg")
+  })
+  
+  
+  
   callModule(mod_ldheatmap_server, "ld")
   callModule(mod_snpdistribution_server, "dis")
   callModule(mod_phylogenetics_server, "tree")
@@ -42,3 +64,4 @@ server <- function(input, output, session) {
 }
 
 shinyApp(ui, server)
+
