@@ -40,7 +40,7 @@ git clone https://github.com/YTLogos/BnaSNPDB.git
 # First install Bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install(version = "3.14")
+BiocManager::install(version = "3.20")
 
 BiocManager::install("shiny",update = F)
 BiocManager::install("ggplot2",update = F)
